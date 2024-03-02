@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int ANIMATION_DURATION = 2000; // Adjust duration as needed
+    private static final int ANIMATION_DURATION = 1000; // Adjust duration as needed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

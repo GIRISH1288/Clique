@@ -1,15 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SignUp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SignUp">
+    android:padding="5dp"
+    android:layout_height="match_parent">
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/step1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sign_up"/>
-
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="30dp"
+        android:layout_toRightOf="@+id/step1"
+        android:id="@+id/step2"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step3"
+        android:layout_width="30dp"
+        android:layout_toRightOf="@+id/step2"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <TextView
+        android:id="@+id/tvSignUpEmailGreeting"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/step1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Hi There!!! Enter Email"/>
+    <TextView
+        android:id="@+id/tvSignUpEmailText"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvSignUpEmailGreeting"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="We'll send you a verification code to confirm your profile creation. 📲"/>
+    <TextView
+        android:id="@+id/tvSignUpPasswordGreeting"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/step1"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Ready to secure your account?"/>
+    <TextView
+        android:id="@+id/tvSignUpPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvSignUpEmailGreeting"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Let's set up your password. 🔒"/>
+    <TextView
+        android:id="@+id/tvSignUpUserNameGreeting"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:visibility="invisible"
+        android:layout_below="@+id/step1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Let's get started by choosing a username. 🎉"/>
+    <TextView
+        android:id="@+id/tvSignUpUserNameText"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvSignUpUserNameGreeting"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Enter a unique username to personalize your experience."/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="200dp"
+    android:gravity="center"
+    >
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_girl"/>
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/etSignUpEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Enter Email"
+        android:focusable="true"
+        android:gravity="center"
+        android:focusableInTouchMode="true"
+        android:layout_centerHorizontal="true"
+        android:ems="15"
+        android:inputType="textEmailAddress"/>
+    <Button
+        android:id="@+id/btnSignUpEmail"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/etSignUpEmail"
+        android:text="Next."/>
+    <EditText
+        android:id="@+id/etSignUpPassword"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:hint="Create Password"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:layout_height="50dp"
+        android:ems="15"
+        android:inputType="textPassword"/>
+    <Button
+        android:id="@+id/btnSignUpPassword"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_height="50dp"
+        android:layout_below="@+id/etSignUpPassword"
+        android:text="Next.."/>
+        <EditText
+            android:id="@+id/etSignUpUserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Create Username"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:ems="15"
+            android:inputType="text"/>
+        <Button
+            android:id="@+id/btnSignUpUserName"
+            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:layout_below="@+id/etSignUpEmail"
+            android:text="Next..."/>
+    </RelativeLayout>
 </LinearLayout>
+</RelativeLayout>
