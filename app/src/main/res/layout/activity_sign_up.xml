@@ -32,6 +32,15 @@
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step4"
+        android:layout_width="30dp"
+        android:layout_toRightOf="@+id/step3"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
     <TextView
         android:id="@+id/tvSignUpEmailGreeting"
         android:layout_width="wrap_content"
@@ -52,6 +61,28 @@
         android:textColor="#A36DFA"
         android:layout_height="wrap_content"
         android:text="We'll send you a verification code to confirm your profile creation. 📲"/>
+    <TextView
+        android:id="@+id/tvSignUpPhoneNumberGreeting"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/step1"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Let's Continue"/>
+    <TextView
+        android:id="@+id/tvSignUpPhoneNumberText"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tvSignUpEmailGreeting"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#A36DFA"
+        android:layout_height="wrap_content"
+        android:text="Enter your phone number to continue with registration."/>
     <TextView
         android:id="@+id/tvSignUpPasswordGreeting"
         android:layout_width="wrap_content"
@@ -133,6 +164,27 @@
                 android:layout_below="@+id/etSignUpEmail"
                 android:text="Next."/>
             <EditText
+                android:id="@+id/etSignUpPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Enter Phone number"
+                android:background="@null"
+                android:focusable="true"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:focusableInTouchMode="true"
+                android:layout_centerHorizontal="true"
+                android:ems="15"
+                android:inputType="phone"/>
+            <Button
+                android:id="@+id/btnSignUpPhoneNUmber"
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/etSignUpEmail"
+                android:text="Next.."/>
+            <EditText
                 android:id="@+id/etSignUpPassword"
                 android:layout_width="match_parent"
                 android:layout_centerHorizontal="true"
@@ -150,7 +202,7 @@
                 android:visibility="invisible"
                 android:layout_height="50dp"
                 android:layout_below="@+id/etSignUpPassword"
-                android:text="Next.."/>
+                android:text="Next..."/>
             <EditText
                 android:id="@+id/etSignUpUserName"
                 android:layout_width="match_parent"
