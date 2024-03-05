@@ -113,11 +113,12 @@ public class SignUp extends AppCompatActivity {
                 if (TextUtils.isEmpty(username)) {
                     Toast.makeText(SignUp.this, "Enter Username", Toast.LENGTH_SHORT).show();
                 }
+                loading_animation.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                loading_animation.setVisibility(View.VISIBLE);
+
                                 if (task.isSuccessful()) {
                                     /*
                                      Sign in success, update UI with the signed-in user's information
