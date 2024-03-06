@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateProfile">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step1CreateProfile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_marginLeft="20dp"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step2CreateProfile"
+        android:layout_width="30dp"
+        android:layout_toRightOf="@id/step1CreateProfile"
+        android:layout_height="30dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step3CreateProfile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/step2CreateProfile"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/step4CreateProfile"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/step3CreateProfile"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up_bulb"/>
+    <LinearLayout
+        android:id="@+id/createProfilePersonalInformation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical"
+        android:layout_below="@id/step1CreateProfile">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:text="Personal Information"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#A36DFA"/>
+        <EditText
+            android:id="@+id/etCreateProfileFullName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:hint="Enter Your Name" />
+        <AutoCompleteTextView
+            android:id="@+id/tvCreateProfileCity"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:hint="City You Live In"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/etCreateProfileBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:layout_marginTop="10dp"
+            android:hint="Birth Date"
+            android:focusable="false"
+            android:onClick="showDatePickerDialog" />
+        <Spinner
+            android:id="@+id/spinnerCreateProfileGender"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:hint="Select Gender"/>
+    </LinearLayout>
+
+</RelativeLayout>

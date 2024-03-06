@@ -14,9 +14,15 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     LottieAnimationView step2, step3, step4, loading_animation;
@@ -24,12 +30,15 @@ public class SignUp extends AppCompatActivity {
     EditText etSignUpEmail, etSignUpPassword, etSignUpUserName, etSignUpPhoneNumber;
     Button btnSignUpEmail, btnSignUpPassword, btnSignUpCreateAccount, btnSignUpPhoneNumber;
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         //Initializing views
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         tvSignUpEmailGreeting = findViewById(R.id.tvSignUpEmailGreeting);
         tvSignUpEmailText = findViewById(R.id.tvSignUpEmailText);
         tvSignUpPhoneNumberGreeting = findViewById(R.id.tvSignUpPhoneNumberGreeting);
@@ -109,6 +118,7 @@ public class SignUp extends AppCompatActivity {
                 String email = etSignUpEmail.getText().toString().trim();
                 String password = etSignUpPassword.getText().toString().trim();
                 String username = etSignUpUserName.getText().toString().trim();
+                String phone = etSignUpPhoneNumber.getText().toString().trim();
 
                 if (TextUtils.isEmpty(username)) {
                     Toast.makeText(SignUp.this, "Enter Username", Toast.LENGTH_SHORT).show();
@@ -125,9 +135,19 @@ public class SignUp extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                     */
-                                    Toast.makeText(SignUp.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-
-                                    startActivity(new Intent(SignUp.this, AfterLogin.class));
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = db.collection("users").document(userID);
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("userName", username);
+                                    user.put("email", email);
+                                    user.put("phone", phone);
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(SignUp.this, "User Profile Is Created for:"+userID, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    startActivity(new Intent(SignUp.this, CreateProfile.class));
 
                                 } else {
                                     // If sign in fails, display a message to the user.
