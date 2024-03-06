@@ -36,4 +36,11 @@ public class LogInActivity extends AppCompatActivity {
         });
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
     }
+    /*
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+    
+     */
 }
