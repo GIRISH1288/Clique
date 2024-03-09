@@ -20,4 +20,10 @@ public class AfterLogin extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), LogInActivity.class));
         finish();
     }
+    public void onBackPressed() {
+        // Call finishAffinity() to close all activities in the current task
+        // and exit the app
+        super.onBackPressed();
+        finishAffinity();
+    }
 }

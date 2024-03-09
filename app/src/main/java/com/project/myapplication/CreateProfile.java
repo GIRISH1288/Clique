@@ -3,6 +3,7 @@ package com.project.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -126,6 +127,8 @@ public class CreateProfile extends AppCompatActivity {
                                 Toast.makeText(CreateProfile.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
+                startActivity(new Intent(CreateProfile.this, AfterLogin.class));
+                finish();
             }
         });
 
@@ -157,5 +160,12 @@ public class CreateProfile extends AppCompatActivity {
         String dateFormat = "dd/MM/yyyy"; // Customize date format if needed
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(dateFormat, java.util.Locale.getDefault());
         etCreateProfileBirthDate.setText(sdf.format(calendar.getTime()));
+    }
+    @Override
+    public void onBackPressed() {
+        // Call finishAffinity() to close all activities in the current task
+        // and exit the app
+        super.onBackPressed();
+        finishAffinity();
     }
 }
