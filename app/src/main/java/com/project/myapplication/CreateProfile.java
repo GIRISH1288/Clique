@@ -8,29 +8,48 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateProfile extends AppCompatActivity {
-    private EditText etCreateProfileBirthDate;
+    private EditText etCreateProfileBirthDate, etCreateProfileFullName;
     private Calendar calendar;
     private String birthdate;
     private String city;
     private AutoCompleteTextView tvCreateProfileCity;
     private Spinner spinnerCreateProfileGender;
     private String gender;
+    private Button btnCreateProfileCreateAccount;
+    FirebaseAuth mAuth;
+    FirebaseFirestore db;
+    String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
 
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         etCreateProfileBirthDate = findViewById(R.id.etCreateProfileBirthDate);
+        etCreateProfileFullName = findViewById(R.id.etCreateProfileFullName);
         tvCreateProfileCity = findViewById(R.id.tvCreateProfileCity);
         calendar = Calendar.getInstance();
         spinnerCreateProfileGender = findViewById(R.id.spinnerCreateProfileGender);
+        btnCreateProfileCreateAccount = findViewById(R.id.btnCreateProfileCreateAccount);
 
 
         //Initialising Arrays
@@ -79,6 +98,35 @@ public class CreateProfile extends AppCompatActivity {
         tvCreateProfileCity.setAdapter(adapterCity);
         tvCreateProfileCity.setOnItemClickListener((parent, view, position, id) -> {
             city = (String) parent.getItemAtPosition(position);
+        });
+        btnCreateProfileCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = etCreateProfileFullName.getText().toString().trim();
+                userID = mAuth.getCurrentUser().getUid();
+                DocumentReference userRef = db.collection("users").document(userID);
+                Map<String, Object> userProfileUpdates = new HashMap<>();
+                userProfileUpdates.put("city", city);
+                userProfileUpdates.put("gender", gender);
+                userProfileUpdates.put("name", name);
+                userProfileUpdates.put("birthdate", birthdate);
+                userRef.update(userProfileUpdates)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Profile fields updated successfully
+                                Toast.makeText(CreateProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                                // Proceed to the next activity or perform other actions
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure( Exception e) {
+                                // Handle any errors that occurred while updating the profile fields
+                                Toast.makeText(CreateProfile.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
         });
 
     }

@@ -5,45 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateProfile">
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/step1CreateProfile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        android:layout_marginLeft="20dp"
-        app:lottie_rawRes="@raw/sign_up_bulb"/>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/step2CreateProfile"
-        android:layout_width="30dp"
-        android:layout_toRightOf="@id/step1CreateProfile"
-        android:layout_height="30dp"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sign_up_bulb"/>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/step3CreateProfile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_toRightOf="@id/step2CreateProfile"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sign_up_bulb"/>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/step4CreateProfile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_toRightOf="@id/step3CreateProfile"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/sign_up_bulb"/>
+
     <LinearLayout
         android:id="@+id/createProfilePersonalInformation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="20dp"
-        android:orientation="vertical"
-        android:layout_below="@id/step1CreateProfile">
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -86,6 +55,25 @@
             android:paddingLeft="10dp"
             android:background="@drawable/border"
             android:hint="Select Gender"/>
+        <Button
+            android:id="@+id/btnCreateProfileCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/border"
+            android:text="Create Account"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
     </LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        android:visibility="invisible"
+        android:background="#80000000"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_animation"/>
 
 </RelativeLayout>
