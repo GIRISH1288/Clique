@@ -57,7 +57,7 @@ public class SignIn extends AppCompatActivity {
                                     */
                                 Toast.makeText(SignIn.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
 
-                                startActivity(new Intent(SignIn.this, AfterLogin.class));
+                                startActivity(new Intent(SignIn.this, BottomNavigation.class));
                             } else {
                                 Toast.makeText(SignIn.this, "Email or Username is Incorrect", Toast.LENGTH_SHORT).show();
                                 animLoadingSignIn.setVisibility(View.INVISIBLE);

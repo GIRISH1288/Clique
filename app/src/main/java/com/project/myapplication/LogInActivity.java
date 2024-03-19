@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -37,6 +38,7 @@ public class LogInActivity extends AppCompatActivity {
     FirebaseFirestore db;
     GoogleSignInClient googleSignInClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +48,6 @@ public class LogInActivity extends AppCompatActivity {
         btnSignUp = findViewById(R.id.btnSignUp);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        /*
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                                .build();
-        googleSignInClient = GoogleSignIn.getClient(this,gso);
-         */
-
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,43 +63,9 @@ public class LogInActivity extends AppCompatActivity {
         btnContGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signIn();
             }
         });
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
-    }
-    int RC_SIGN_IN = 40;
-    private void signIn() {
-        Intent intent = googleSignInClient.getSignInIntent();
-        startActivityForResult(intent, RC_SIGN_IN);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount>task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuth(account.getIdToken());
-            } catch (ApiException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
-
-    private void firebaseAuth(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        }
-                    }
-                });
     }
     /*
     public void onBackPressed() {

@@ -84,7 +84,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     // Start the new activity when fade-out animation finishes
-                    startActivity(new Intent(SplashActivity.this, AfterLogin.class));
+                    startActivity(new Intent(SplashActivity.this, BottomNavigation.class));
                     finish();// Finish the current activity
                 }
 

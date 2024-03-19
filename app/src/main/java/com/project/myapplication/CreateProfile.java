@@ -127,7 +127,7 @@ public class CreateProfile extends AppCompatActivity {
                                 Toast.makeText(CreateProfile.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-                startActivity(new Intent(CreateProfile.this, AfterLogin.class));
+                startActivity(new Intent(CreateProfile.this, BottomNavigation.class));
                 finish();
             }
         });
