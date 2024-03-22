@@ -11,10 +11,10 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+        android:id="@+id/bottomNavigationView"
         app:menu="@menu/nav_items"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:background="#515570"/>
+        android:background="@color/bar"/>
 </RelativeLayout>

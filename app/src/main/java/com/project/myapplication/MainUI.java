@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.widget.TableLayout;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,7 +16,7 @@ public class MainUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_ui);
         mainUITab = findViewById(R.id.mainUITab);
         mainUIViewPager = findViewById(R.id.mainUIViewPager);
-        ViewPagerTabAdapter adapter = new ViewPagerTabAdapter(getSupportFragmentManager());
+        ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getSupportFragmentManager());
         mainUIViewPager.setAdapter(adapter);
         mainUITab.setupWithViewPager(mainUIViewPager);
 
