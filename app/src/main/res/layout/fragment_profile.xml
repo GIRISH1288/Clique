@@ -43,7 +43,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/profile_picture"
-                    android:src="@drawable/demo_profile_pic" />
+                    android:src="@drawable/no_dp_selected" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,21 +54,24 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvProfileFullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="Your Name"
+                        android:hint="Name"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvProfileUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="username" />
+                        android:hint="User Name" />
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ivProfileEditButton"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_alignParentRight="true"
@@ -88,9 +91,10 @@
                     android:src="@drawable/location" />
 
                 <TextView
+                    android:id="@+id/tvProfileCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Your City, Country" />
+                    android:hint="City" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,9 +103,10 @@
                     android:src="@drawable/join_date" />
 
                 <TextView
+                    android:id="@+id/tvProfileJoinedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Joined on:Date" />
+                    android:hint="Joined From" />
 
             </LinearLayout>
 
@@ -118,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="University Name, Department, Name of Degree, year" />
+                    android:hint="University Info" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"

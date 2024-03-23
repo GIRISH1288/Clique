@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -135,12 +136,17 @@ public class SignUp extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);
                                     */
+                                    Calendar calendar = Calendar.getInstance();
+                                    int year = calendar.get(Calendar.YEAR);
+                                    int month = calendar.get(Calendar.MONTH);
                                     userID = mAuth.getCurrentUser().getUid();
                                     DocumentReference documentReference = db.collection("users").document(userID);
                                     Map<String, Object> user = new HashMap<>();
                                     user.put("userName", username);
                                     user.put("email", email);
                                     user.put("phone", phone);
+                                    user.put("registrationMonth", month);
+                                    user.put("registrationYear", year);
                                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
