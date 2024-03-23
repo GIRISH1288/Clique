@@ -1,5 +1,6 @@
 package com.project.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,7 +53,8 @@ public class ProfileFragment extends Fragment {
             return true;
         } else if (item.getItemId() == R.id.profile_settings) {
             // Handle settings action
-            Toast.makeText(requireContext(), "Settings clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(requireContext(), SettingActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
