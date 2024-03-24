@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".EditProfilePicture"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"
+            android:text="Clique"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="80dp"
+        android:layout_margin="30dp"
+        android:background="@drawable/profile_picture"
+        android:id="@+id/ivEditProfilePicture"
+        android:src="@drawable/no_dp_selected"
+        android:layout_height="80dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/btnEditSelectProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:text="Select and Update"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/btnEditRemoveProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:text="Remove Profile Picture"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animgirl"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/sign_up_girl"/>
+    </LinearLayout>
+
+</LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animLoadingRemove"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        android:visibility="invisible"
+        android:background="#80000000"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_animation"/>
+</RelativeLayout>

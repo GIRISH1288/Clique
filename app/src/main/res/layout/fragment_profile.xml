@@ -37,13 +37,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/profileProfilePicture"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:layout_width="80dp"
-                    android:layout_height="80dp"
                     android:background="@drawable/profile_picture"
-                    android:src="@drawable/no_dp_selected" />
+                    android:id="@+id/profileProfilePicture"
+                    android:src="@drawable/no_dp_selected"
+                    android:layout_height="80dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FF000000"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,6 +123,7 @@
                     android:src="@drawable/education" />
 
                 <TextView
+                    android:id="@+id/tvProfileUniversityInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="University Info" />

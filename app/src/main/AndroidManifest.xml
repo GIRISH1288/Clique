@@ -15,6 +15,15 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfilePicture"
+            android:exported="false" />
+        <activity
+            android:name=".EditUniversitiesDetails"
+            android:exported="false" />
+        <activity
+            android:name=".EditCity"
+            android:exported="false" />
+        <activity
             android:name=".EditNameUserName"
             android:exported="false" />
         <activity

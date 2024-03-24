@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditCity"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"
+            android:text="Clique"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="40dp">
+        <AutoCompleteTextView
+            android:id="@+id/etEditCity"
+            android:layout_width="match_parent"
+            android:background="@drawable/border"
+            android:layout_height="50dp"
+            android:ems="20"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:hint="City You Live In"/>
+        <Button
+            android:id="@+id/btnEditUpdateCity"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_height="50dp"
+            android:background="@drawable/border"
+            android:text="Update"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animgirl"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/sign_up_girl"/>
+    </LinearLayout>
+
+</LinearLayout>

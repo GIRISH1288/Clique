@@ -29,19 +29,16 @@ public class EditProfileMenu extends AppCompatActivity {
                 // Start the corresponding activity based on the clicked option
                 switch (settingOption) {
                     case "Profile Picture":
-                        Toast.makeText(EditProfileMenu.this, "Clicked on " + settingOption, Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(requireContext(), Option1Activity.class));
+                        startActivity(new Intent(EditProfileMenu.this, EditProfilePicture.class));
                         break;
                     case "Name or Username":
                         startActivity(new Intent(EditProfileMenu.this, EditNameUserName.class));
                         break;
                     case "City":
-                        Toast.makeText(EditProfileMenu.this, "Clicked on " + settingOption, Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(requireContext(), Option3Activity.class));
+                        startActivity(new Intent(EditProfileMenu.this, EditCity.class));
                         break;
                     case "University Details":
-                        Toast.makeText(EditProfileMenu.this, "Clicked on " + settingOption, Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(SettingActivity.this, SettingsAccountDetails.class));
+                        startActivity(new Intent(EditProfileMenu.this, EditUniversitiesDetails.class));
                         break;
                     case "About Section":
                         Toast.makeText(EditProfileMenu.this, "Clicked on " + settingOption, Toast.LENGTH_SHORT).show();
