@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditAboutSection">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"
+            android:text="About Section"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_margin="10dp"
+        android:background="@drawable/border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:hint="About Yourself" />
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:paddingBottom="100dp">
+
+        <Button
+            android:id="@+id/btnBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bold" />
+
+        <Button
+            android:id="@+id/btnItalic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Italic"
+            android:layout_marginStart="8dp"/>
+
+        <Button
+            android:id="@+id/btnNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Normal"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+</LinearLayout>

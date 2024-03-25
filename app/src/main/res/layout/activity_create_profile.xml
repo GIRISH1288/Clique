@@ -28,6 +28,14 @@
             android:paddingLeft="10dp"
             android:background="@drawable/border"
             android:hint="Enter Your Name" />
+        <EditText
+            android:id="@+id/etCreateProfileUserName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:hint="Enter Unique User Name" />
         <AutoCompleteTextView
             android:id="@+id/tvCreateProfileCity"
             android:layout_width="match_parent"

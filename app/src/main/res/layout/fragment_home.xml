@@ -5,35 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-        <RelativeLayout
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#515570">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/menu"
-                android:padding="10dp"
-                android:contentDescription="TODO" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/title_font"
-                android:text="Clique"
-                android:textSize="25sp"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textStyle="bold"/>
-            <ImageView
-                android:layout_alignParentEnd="true"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/search"
-                android:padding="10dp"
-                android:contentDescription="TODO" />
-        </RelativeLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"
+            android:text="Clique"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:layout_below="@+id/title"

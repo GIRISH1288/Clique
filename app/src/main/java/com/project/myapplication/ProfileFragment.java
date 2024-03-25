@@ -92,7 +92,7 @@ public class ProfileFragment extends Fragment {
                 if (documentSnapshot.exists()) {
                     // Access field data
                     String fullName = documentSnapshot.getString("name");
-                    String userName = documentSnapshot.getString("userName");
+                    String userName = documentSnapshot.getString("username");
                     String city = documentSnapshot.getString("city");
                     String university = documentSnapshot.getString("university");
                     String department = documentSnapshot.getString("department");

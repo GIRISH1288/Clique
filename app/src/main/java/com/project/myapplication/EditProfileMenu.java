@@ -41,8 +41,7 @@ public class EditProfileMenu extends AppCompatActivity {
                         startActivity(new Intent(EditProfileMenu.this, EditUniversitiesDetails.class));
                         break;
                     case "About Section":
-                        Toast.makeText(EditProfileMenu.this, "Clicked on " + settingOption, Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(requireContext(), Option3Activity.class));
+                        startActivity(new Intent(EditProfileMenu.this, EditAboutSection.class));
                         break;
                     default:
                         break;

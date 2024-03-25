@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:paddingHorizontal="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="3dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -132,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="15dp">
+                android:layout_marginTop="15dp">
                 <Button
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
@@ -158,5 +159,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
+
 
 </FrameLayout>

@@ -52,7 +52,7 @@ public class EditNameUserName extends AppCompatActivity {
 
                 DocumentReference documentReference = db.collection("users").document(userID);
                 Map<String, Object> user = new HashMap<>();
-                user.put("userName", username);
+                user.put("username", username);
                 user.put("name", name);
                 documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

@@ -1,10 +1,12 @@
 package com.project.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,18 +17,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateProfile extends AppCompatActivity {
-    private EditText etCreateProfileBirthDate, etCreateProfileFullName;
+    private EditText etCreateProfileBirthDate, etCreateProfileFullName, etCreateProfileUserName;
     private Calendar calendar;
     private String birthdate;
     private String city;
@@ -47,6 +52,7 @@ public class CreateProfile extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         etCreateProfileBirthDate = findViewById(R.id.etCreateProfileBirthDate);
         etCreateProfileFullName = findViewById(R.id.etCreateProfileFullName);
+        etCreateProfileUserName = findViewById(R.id.etCreateProfileUserName);
         tvCreateProfileCity = findViewById(R.id.tvCreateProfileCity);
         calendar = Calendar.getInstance();
         spinnerCreateProfileGender = findViewById(R.id.spinnerCreateProfileGender);
@@ -104,31 +110,71 @@ public class CreateProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = etCreateProfileFullName.getText().toString().trim();
-                userID = mAuth.getCurrentUser().getUid();
-                DocumentReference userRef = db.collection("users").document(userID);
-                Map<String, Object> userProfileUpdates = new HashMap<>();
-                userProfileUpdates.put("city", city);
-                userProfileUpdates.put("gender", gender);
-                userProfileUpdates.put("name", name);
-                userProfileUpdates.put("birthdate", birthdate);
-                userRef.update(userProfileUpdates)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                String username = etCreateProfileUserName.getText().toString().trim();
+                if (TextUtils.isEmpty(username)) {
+                    Toast.makeText(CreateProfile.this, "Enter Username", Toast.LENGTH_SHORT).show();
+                    return; // Exit method if username is empty
+                }
+                if (TextUtils.isEmpty(city)) {
+                    Toast.makeText(CreateProfile.this, "Enter city", Toast.LENGTH_SHORT).show();
+                    return; // Exit method if username is empty
+                }
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(CreateProfile.this, "Enter name", Toast.LENGTH_SHORT).show();
+                    return; // Exit method if username is empty
+                }
+                if (TextUtils.isEmpty(birthdate)) {
+                    Toast.makeText(CreateProfile.this, "Enter birthdate", Toast.LENGTH_SHORT).show();
+                    return; // Exit method if username is empty
+                }
+                db.collection("users")
+                        .whereEqualTo("username", username)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                // Profile fields updated successfully
-                                Toast.makeText(CreateProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                                // Proceed to the next activity or perform other actions
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure( Exception e) {
-                                // Handle any errors that occurred while updating the profile fields
-                                Toast.makeText(CreateProfile.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        // Username already exists, display error message
+                                        Toast.makeText(CreateProfile.this, "Username already exists. Choose a different one.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Username is unique, proceed with updating profile
+                                        // Get other profile information
+                                        userID = mAuth.getCurrentUser().getUid();
+                                        DocumentReference userRef = db.collection("users").document(userID);
+                                        Map<String, Object> userProfileUpdates = new HashMap<>();
+                                        userProfileUpdates.put("city", city);
+                                        userProfileUpdates.put("gender", gender);
+                                        userProfileUpdates.put("name", name);
+                                        userProfileUpdates.put("birthdate", birthdate);
+                                        userProfileUpdates.put("username", username); // Add username field
+
+                                        // Update profile
+                                        userRef.update(userProfileUpdates)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        // Profile fields updated successfully
+                                                        Toast.makeText(CreateProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                                                        // Proceed to the next activity or perform other actions
+                                                        startActivity(new Intent(CreateProfile.this, BottomNavigation.class));
+                                                        finish();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(Exception e) {
+                                                        // Handle any errors that occurred while updating the profile fields
+                                                        Toast.makeText(CreateProfile.this, "Failed to update profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                } else {
+                                    // Error occurred while checking username existence
+                                    Toast.makeText(CreateProfile.this, "Error checking username existence.", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
-                startActivity(new Intent(CreateProfile.this, BottomNavigation.class));
-                finish();
             }
         });
 

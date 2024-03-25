@@ -15,6 +15,13 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditAboutSection"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".EditProfilePicture"
             android:exported="false" />
         <activity

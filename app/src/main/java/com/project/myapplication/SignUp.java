@@ -97,73 +97,48 @@ public class SignUp extends AppCompatActivity {
         btnSignUpPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password = etSignUpPassword.getText().toString().trim();
-                if (!password.isEmpty()) {
-                    step4.setVisibility(View.VISIBLE);
-                    tvSignUpPasswordGreeting.setVisibility(View.INVISIBLE);
-                    tvSignUpPasswordText.setVisibility(View.INVISIBLE);
-                    tvSignUpUserNameGreeting.setVisibility(View.VISIBLE);
-                    tvSignUpUserNameText.setVisibility(View.VISIBLE);
-                    etSignUpPassword.setVisibility(View.INVISIBLE);
-                    btnSignUpPassword.setVisibility(View.INVISIBLE);
-                    etSignUpUserName.setVisibility(View.VISIBLE);
-                    btnSignUpCreateAccount.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(SignUp.this, "Enter Password", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        btnSignUpCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 String email = etSignUpEmail.getText().toString().trim();
                 String password = etSignUpPassword.getText().toString().trim();
-                String username = etSignUpUserName.getText().toString().trim();
                 String phone = etSignUpPhoneNumber.getText().toString().trim();
+                if (TextUtils.isEmpty(password) || password.length()<8) {
+                    Toast.makeText(SignUp.this, "Password must be 8 characters long", Toast.LENGTH_SHORT).show();
+                } else {
+                    loading_animation.setVisibility(View.VISIBLE);
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(SignUp.this, "Enter Username", Toast.LENGTH_SHORT).show();
-                }
-                loading_animation.setVisibility(View.VISIBLE);
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                if (task.isSuccessful()) {
-                                    /*
-                                     Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
-                                    */
-                                    Calendar calendar = Calendar.getInstance();
-                                    int year = calendar.get(Calendar.YEAR);
-                                    int month = calendar.get(Calendar.MONTH);
-                                    userID = mAuth.getCurrentUser().getUid();
-                                    DocumentReference documentReference = db.collection("users").document(userID);
-                                    Map<String, Object> user = new HashMap<>();
-                                    user.put("userName", username);
-                                    user.put("email", email);
-                                    user.put("phone", phone);
-                                    user.put("registrationMonth", month);
-                                    user.put("registrationYear", year);
-                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(SignUp.this, "User Profile Is Created for:"+userID, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                    startActivity(new Intent(SignUp.this, CreateProfile.class));
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(SignUp.this, "Registration failed.", Toast.LENGTH_SHORT).show();
-                                    loading_animation.setVisibility(View.INVISIBLE);
+                                    if (task.isSuccessful()) {
+                                        Calendar calendar = Calendar.getInstance();
+                                        int year = calendar.get(Calendar.YEAR);
+                                        int month = calendar.get(Calendar.MONTH);
+                                        userID = mAuth.getCurrentUser().getUid();
+                                        DocumentReference documentReference = db.collection("users").document(userID);
+                                        Map<String, Object> user = new HashMap<>();
+                                        user.put("email", email);
+                                        user.put("phone", phone);
+                                        user.put("registrationMonth", month);
+                                        user.put("registrationYear", year);
+                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(SignUp.this, "User Profile Is Created for:"+userID, Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        startActivity(new Intent(SignUp.this, CreateProfile.class));
+                                        finish();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(SignUp.this, "Registration failed.", Toast.LENGTH_SHORT).show();
+                                        loading_animation.setVisibility(View.INVISIBLE);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
+
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
     }
 
