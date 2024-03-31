@@ -3,11 +3,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CreatePostFragment">
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Create Post"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bar">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/title_font"
+                android:gravity="center"
+                android:text="Create post"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="10dp">
+            <ImageView
+                android:id="@+id/ivCreatePostPost"
+                android:visibility="gone"
+                android:layout_width="300dp"
+                android:layout_height="400dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="40dp">
+            <Button
+                android:id="@+id/createPostSelectFromCamera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:text="Select Picture From Camera"/>
+            <Button
+                android:id="@+id/createPostSelectFromGallery"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/border"
+                android:layout_height="wrap_content"
+                android:text="Select Picture From Gallery"/>
+            <EditText
+                android:id="@+id/createPostCaption"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border"
+                android:visibility="gone"
+                android:padding="4dp"
+                android:textSize="15sp"/>
+            <Button
+                android:id="@+id/createPostAddCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:text="Add Caption"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/createPostPublishPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border"
+                android:text="Publish Post"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            android:visibility="invisible"
+            android:background="#80000000"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading_animation"/>
+    </RelativeLayout>
 </FrameLayout>

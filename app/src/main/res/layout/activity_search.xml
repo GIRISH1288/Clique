@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".SearchActivity"
     android:orientation="vertical">
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:queryHint="Search by user names"
-            android:background="@drawable/border"
-            android:backgroundTint="@color/bar"/>
+            android:background="@color/bar">
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    app:queryHint="Search by user names"
+                    android:background="@drawable/background_search" />
+        </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">

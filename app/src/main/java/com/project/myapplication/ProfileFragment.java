@@ -66,8 +66,7 @@ public class ProfileFragment extends Fragment {
         tvProfileUniversityInfo = view.findViewById(R.id.tvProfileUniversityInfo);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = db.collection("users").document(userID);
+
         int defaultImage = R.drawable.no_dp_selected;
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -85,12 +84,13 @@ public class ProfileFragment extends Fragment {
             // This can occur if the user has not uploaded a profile picture yet
             profileProfilePicture.setImageResource(defaultImage);
         });
-
+        userID = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = db.collection("users").document(userID);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    // Access field data
+                    // Access field data if document exist
                     String fullName = documentSnapshot.getString("name");
                     String userName = documentSnapshot.getString("username");
                     String city = documentSnapshot.getString("city");
@@ -99,26 +99,18 @@ public class ProfileFragment extends Fragment {
                     long year = documentSnapshot.getLong("registrationYear");
                     long month = documentSnapshot.getLong("registrationMonth");
                     String universityInfo = university + ", " + department;
-
-                    // Convert month number to month name
                     String monthName = "";
                     if (month >= 0 && month <= 11) {
                         DateFormatSymbols dfs = new DateFormatSymbols();
                         String[] months = dfs.getMonths();
                         monthName = months[(int) (month)];
                     }
-
-                    // Construct the join date string
                     String joinDate = "Joined on " + monthName + " " + year;
-                    // Access other fields as needed
-
-                    // Now you can use the retrieved data
                     tvProfileFullName.setText(fullName);
                     tvProfileUserName.setText(userName);
                     tvProfileCity.setText(city);
                     tvProfileJoinedDate.setText(joinDate);
                     tvProfileUniversityInfo.setText(universityInfo);
-                    // Set other UI elements accordingly
                 } else {
                     // Document does not exist
                     Toast.makeText(requireContext(), "error1", Toast.LENGTH_LONG).show();

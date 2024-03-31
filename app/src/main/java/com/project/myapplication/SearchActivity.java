@@ -4,15 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,10 +14,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.StorageReference;
-
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
     androidx.appcompat.widget.SearchView searchView;
@@ -83,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                             String fullName = document.getString("name");
                             String profileImageUrl = document.getString("profileImageUrl");
                             User user = new User(username, fullName, profileImageUrl);
-                            if (username == loggedInUsername) {} else {
+                            if (Objects.equals(username, loggedInUsername)) {} else {
                                 userList.add(user);
                             }
                         }

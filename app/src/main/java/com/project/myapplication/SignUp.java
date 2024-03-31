@@ -108,7 +108,6 @@ public class SignUp extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-
                                     if (task.isSuccessful()) {
                                         Calendar calendar = Calendar.getInstance();
                                         int year = calendar.get(Calendar.YEAR);
