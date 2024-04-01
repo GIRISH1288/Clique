@@ -25,13 +25,24 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etabout"
         android:layout_margin="10dp"
+        android:inputType="text"
         android:background="@drawable/border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:hint="About Yourself" />
+    <EditText
+        android:id="@+id/etskills"
+        android:layout_margin="10dp"
+        android:background="@drawable/border"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:hint="Add your skills" />
+
 
     <LinearLayout
         android:id="@+id/buttonContainer"
@@ -41,24 +52,13 @@
         android:orientation="horizontal"
         android:paddingBottom="100dp">
 
-        <Button
-            android:id="@+id/btnBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bold" />
+
 
         <Button
-            android:id="@+id/btnItalic"
+            android:id="@+id/btnsetabout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Italic"
-            android:layout_marginStart="8dp"/>
-
-        <Button
-            android:id="@+id/btnNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Normal"
+            android:text="SET ABOUT"
             android:layout_marginStart="8dp"/>
     </LinearLayout>
 

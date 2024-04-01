@@ -1,93 +1,72 @@
 package com.project.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
-import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditAboutSection extends AppCompatActivity {
-    private EditText editText;
-    private Button btnBold, btnItalic, btnNormal;
+
+    EditText etabout, etskills;
+    Button btnsetabout;
+    String about, skills;
+    FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_about_section);
 
-        editText = findViewById(R.id.editText);
-        btnBold = findViewById(R.id.btnBold);
-        btnItalic = findViewById(R.id.btnItalic);
-        btnNormal = findViewById(R.id.btnNormal);
-
-        editText.addTextChangedListener(new TextWatcher() {
+        etabout = findViewById(R.id.etabout);
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        userID = mAuth.getCurrentUser().getUid();
+        etskills = findViewById(R.id.etskills);
+        btnsetabout = findViewById(R.id.btnsetabout);
+        btnsetabout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onClick(View view) {
+                about = etabout.getText().toString().trim();
+                skills = etskills.getText().toString().trim();
+                if (about == null || skills == null) {
+                    Toast.makeText(EditAboutSection.this, "Add Information", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                DocumentReference documentReference = db.collection("users").document(userID);
+                Map<String, Object> user = new HashMap<>();
+                user.put("about", about);
+                user.put("skills", skills);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+                documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(EditAboutSection.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(EditAboutSection.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                updateButtonsState();
-            }
-        });
 
-        btnBold.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyStyleToSelection(Typeface.BOLD);
-            }
-        });
-
-        btnItalic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyStyleToSelection(Typeface.ITALIC);
-            }
-        });
-
-        btnNormal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                applyStyleToSelection(Typeface.NORMAL);
             }
         });
     }
-
-    private void updateButtonsState() {
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-
-        // Check if any text is selected
-        boolean textSelected = start != end;
-    }
-
-    private void applyStyleToSelection(int style) {
-        int start = editText.getSelectionStart();
-        int end = editText.getSelectionEnd();
-
-        Editable editable = editText.getText();
-        SpannableStringBuilder builder = new SpannableStringBuilder(editable);
-        StyleSpan[] styleSpans = builder.getSpans(start, end, StyleSpan.class);
-
-        // Remove any existing style spans in the selected range
-        for (StyleSpan span : styleSpans) {
-            builder.removeSpan(span);
-        }
-
-        // Apply the new style to the selected text
-        StyleSpan styleSpan = new StyleSpan(style);
-        builder.setSpan(styleSpan, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-        editText.setText(builder);
-    }
-
 }
+
