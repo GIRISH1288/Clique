@@ -1,11 +1,13 @@
 package com.project.myapplication;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.os.Bundle;
-import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -73,8 +76,10 @@ public class SearchActivity extends AppCompatActivity {
                             // Retrieve user data from Firestore document
                             String username = document.getString("username");
                             String fullName = document.getString("name");
+                            String userID = document.getId();
                             String profileImageUrl = document.getString("profileImageUrl");
-                            User user = new User(username, fullName, profileImageUrl);
+                            String notificationToken = document.getString("notification_token");
+                            User user = new User(username, fullName, profileImageUrl, notificationToken, userID);
                             if (Objects.equals(username, loggedInUsername)) {} else {
                                 userList.add(user);
                             }

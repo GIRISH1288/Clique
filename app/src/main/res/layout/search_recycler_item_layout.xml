@@ -18,7 +18,7 @@
         app:civ_border_width="2dp"
         app:civ_border_color="#FF000000"/>
     <LinearLayout
-        android:layout_toRightOf="@+id/searchProfilePicture"
+        android:layout_toEndOf="@+id/searchProfilePicture"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
         android:background="@null"
         android:src="@drawable/add_friend"/>
 </RelativeLayout>

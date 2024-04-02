@@ -5,13 +5,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,6 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         private TextView fullName;
         private TextView username;
         private ImageButton addFriendButton;
+
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -60,10 +72,63 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .error(R.drawable.no_dp_selected) // Error image if loading fails
                 .circleCrop() // Crop the image into a circle
                 .into(holder.profilePicture);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
+        String connectUser = user.getUserID();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = db.collection("users").document(userID);
+        final String[] loggedInUser = new String[1];
+        final String[] loggedUsername = new String[1];
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    // Access field data if document exist
+                    loggedInUser[0] = documentSnapshot.getString("name");
+                    loggedUsername[0] = documentSnapshot.getString("username");
+                }
+            }
+        });
+        holder.addFriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userToken = user.getNotificationToken();
+                FcmNotificationSender fcmNotificationSender = new FcmNotificationSender(userToken, loggedUsername[0], loggedInUser[0]+" wants to connect with you!", holder.itemView.getContext());
+                DocumentReference documentReference = db.collection("users").document(connectUser).collection("request").document();
+                Map<String, Object> addUser = new HashMap<>();
+                addUser.put("userID", userID);
+                db.collection("users")
+                        .document(connectUser)
+                        .collection("request")
+                        .whereEqualTo("userID", userID)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        Toast.makeText(holder.itemView.getContext(), "Already sent request",Toast.LENGTH_LONG).show();
+                                    } else {
+                                        documentReference.set(addUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                } else {
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                fcmNotificationSender.SendNotification();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return userList.size();
     }
+
 }
