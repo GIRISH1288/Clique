@@ -98,30 +98,48 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 Map<String, Object> addUser = new HashMap<>();
                 addUser.put("userID", userID);
                 db.collection("users")
-                        .document(connectUser)
-                        .collection("request")
-                        .whereEqualTo("userID", userID)
+                        .document(userID)
+                        .collection("connection")
+                        .whereEqualTo("userID", connectUser)
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     if (!task.getResult().isEmpty()) {
-                                        Toast.makeText(holder.itemView.getContext(), "Already sent request",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(holder.itemView.getContext(), "connected already",Toast.LENGTH_LONG).show();
                                     } else {
-                                        documentReference.set(addUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                } else {
-                                                }
-                                            }
-                                        });
+                                        db.collection("users")
+                                                .document(connectUser)
+                                                .collection("request")
+                                                .whereEqualTo("userID", userID)
+                                                .get()
+                                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            if (!task.getResult().isEmpty()) {
+                                                                Toast.makeText(holder.itemView.getContext(), "Already sent request",Toast.LENGTH_LONG).show();
+                                                            } else {
+                                                                documentReference.set(addUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        if (task.isSuccessful()) {
+                                                                        } else {
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                        fcmNotificationSender.SendNotification();
                                     }
                                 }
                             }
                         });
-                fcmNotificationSender.SendNotification();
+
+
             }
         });
     }

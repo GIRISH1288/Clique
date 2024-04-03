@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewUserProfile"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/title_font"
+                android:gravity="center"
+                android:text="Clique"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ImageButton
+            android:id="@+id/viewProfileMessageUser"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/message"
+            android:background="@null"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="80dp"
+                android:background="@drawable/profile_picture"
+                android:id="@+id/viewProfileProfilePicture"
+                android:src="@drawable/no_dp_selected"
+                android:layout_height="80dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/viewProfileProfilePicture"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/viewProfileFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:hint="Name"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/viewProfileUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:hint="User Name" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/viewProfileAddFriend"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/add_friend" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/location"
+                android:layout_marginRight="3dp"/>
+
+            <TextView
+                android:id="@+id/viewProfileCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="City" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/join_date" />
+
+            <TextView
+                android:id="@+id/viewProfileJoinedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Joined From" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="3dp"
+                android:src="@drawable/education" />
+
+            <TextView
+                android:id="@+id/viewProfileUniversityDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="University Info" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp">
+            <Button
+                android:id="@+id/viewProfileConnections"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Connections"
+                android:background="@drawable/border"
+                android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@color/bar"/>
+            <Button
+                android:id="@+id/viewProfileCommunities"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Communities"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/border"
+                android:backgroundTint="@color/bar"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/viewProfileTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewProfileViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

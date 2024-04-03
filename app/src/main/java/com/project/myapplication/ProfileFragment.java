@@ -11,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +34,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.text.DateFormatSymbols;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,6 +47,7 @@ public class ProfileFragment extends Fragment {
     String userID;
     StorageReference storageReference;
     ImageView ivProfileEditButton;
+    Button btnProfileShowConnections, btnProfileShowCommunities;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +68,7 @@ public class ProfileFragment extends Fragment {
         tvProfileUniversityInfo = view.findViewById(R.id.tvProfileUniversityInfo);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        btnProfileShowConnections = view.findViewById(R.id.btnProfileShowConnections);
 
         int defaultImage = R.drawable.no_dp_selected;
 
@@ -131,6 +134,14 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(requireContext(), EditProfileMenu.class));
+            }
+        });
+        btnProfileShowConnections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), ShowConnections.class);
+                intent.putExtra("userID", userID);
+                v.getContext().startActivity(intent);
             }
         });
 
