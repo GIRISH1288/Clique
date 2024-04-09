@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="350dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etcommunityname"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/border2"
+        android:text="Create communities "
+
+        android:textSize="30dp" />
+
+    <EditText
+
+        android:layout_width="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="48dp"
+        android:text=""
+        android:id="@+id/etcommunityname"
+        android:hint="enter community name"
+        android:layout_centerVertical="true"
+        android:background="@drawable/border3"
+        android:textSize="25dp"
+        />
+
+    <EditText
+        android:id="@+id/etcommunitydescription"
+        android:layout_width="300dp"
+        android:layout_height="77dp"
+        android:layout_below="@id/etcommunityname"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/border3"
+        android:hint="enter  description" />
+    <Button
+        android:id="@+id/btaddcommunity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etcommunitydescription"
+        android:text="Add"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

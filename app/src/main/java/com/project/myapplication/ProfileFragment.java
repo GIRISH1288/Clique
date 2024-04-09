@@ -1,5 +1,6 @@
 package com.project.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -54,9 +55,12 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         setHasOptionsMenu(true);
 
+        // Access toolbar and setSupportActionBar only after Fragment is attached
         Toolbar toolbar = view.findViewById(R.id.profileToolbar);
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar); // Use getActivity() here
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+
+
         profileTab = view.findViewById(R.id.profileTab);
         profileViewPager = view.findViewById(R.id.profileViewPager);
         profileProfilePicture = view.findViewById(R.id.profileProfilePicture);
@@ -89,43 +93,55 @@ public class ProfileFragment extends Fragment {
         });
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = db.collection("users").document(userID);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+           documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    // Access field data if document exist
-                    String fullName = documentSnapshot.getString("name");
-                    String userName = documentSnapshot.getString("username");
-                    String city = documentSnapshot.getString("city");
-                    String university = documentSnapshot.getString("university");
-                    String department = documentSnapshot.getString("department");
-                    long year = documentSnapshot.getLong("registrationYear");
-                    long month = documentSnapshot.getLong("registrationMonth");
-                    String universityInfo = university + ", " + department;
-                    String monthName = "";
-                    if (month >= 0 && month <= 11) {
-                        DateFormatSymbols dfs = new DateFormatSymbols();
-                        String[] months = dfs.getMonths();
-                        monthName = months[(int) (month)];
+         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (isAdded() && getContext() != null) { // Check if the fragment is attached and context is not null
+                    if (documentSnapshot.exists()) {
+                        // Access field data if document exists
+                        String fullName = documentSnapshot.getString("name");
+                        String userName = documentSnapshot.getString("username");
+                        String city = documentSnapshot.getString("city");
+                        String university = documentSnapshot.getString("university");
+                        String department = documentSnapshot.getString("department");
+                        long year = documentSnapshot.getLong("registrationYear");
+                        long month = documentSnapshot.getLong("registrationMonth");
+                        String universityInfo = university + ", " + department;
+                        String monthName = "";
+                        if (month >= 0 && month <= 11) {
+                            DateFormatSymbols dfs = new DateFormatSymbols();
+                            String[] months = dfs.getMonths();
+                            monthName = months[(int) month];
+                        }
+                        String joinDate = "Joined on " + monthName + " " + year;
+                        tvProfileFullName.setText(fullName);
+                        tvProfileUserName.setText(userName);
+                        tvProfileCity.setText(city);
+                        tvProfileJoinedDate.setText(joinDate);
+                        tvProfileUniversityInfo.setText(universityInfo);
+                    } else {
+
+                        // Document does not exist
+                        Toast.makeText(getContext(), "Document does not exist", Toast.LENGTH_LONG).show();
                     }
-                    String joinDate = "Joined on " + monthName + " " + year;
-                    tvProfileFullName.setText(fullName);
-                    tvProfileUserName.setText(userName);
-                    tvProfileCity.setText(city);
-                    tvProfileJoinedDate.setText(joinDate);
-                    tvProfileUniversityInfo.setText(universityInfo);
                 } else {
-                    // Document does not exist
-                    Toast.makeText(requireContext(), "error1", Toast.LENGTH_LONG).show();
+
+                        Toast.makeText(getContext(), "Fragment is not attached", Toast.LENGTH_LONG).show();
+
+
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
+        }
+        ).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 // Handle any errors
-                Toast.makeText(requireContext(), "Error loading Page", Toast.LENGTH_LONG).show();
+                if (getContext() != null) { // Check if the context is not null
+                    Toast.makeText(getContext(), "Error loading Page", Toast.LENGTH_LONG).show();
+                }
             }
         });
+
 
         ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getChildFragmentManager());
         profileViewPager.setAdapter(adapter);
@@ -158,7 +174,8 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.profile_share) {
             // Handle share action
-            Toast.makeText(requireContext(), "Share clicked", Toast.LENGTH_SHORT).show();
+            if (getContext() != null){
+            Toast.makeText(requireContext(), "Share clicked", Toast.LENGTH_SHORT).show();}
             return true;
         } else if (item.getItemId() == R.id.profile_settings) {
             // Handle settings action
