@@ -16,6 +16,12 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".ShowUserForChat"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShowConnections"
             android:exported="false" />
         <activity

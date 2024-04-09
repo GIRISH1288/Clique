@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 
-public class ViewPagerTabAdapter extends FragmentPagerAdapter {
-    public ViewPagerTabAdapter(@NonNull FragmentManager fm) {
+public class ViewProfileViewPagerTabAdapter extends FragmentPagerAdapter {
+    public ViewProfileViewPagerTabAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
@@ -29,7 +29,7 @@ public class ViewPagerTabAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position==0) {
-            return "Student";
+            return "People";
         } else if (position == 1) {
             return "Community";
         } else {

@@ -1,16 +1,15 @@
 package com.project.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,6 +57,7 @@ public class SignIn extends AppCompatActivity {
                                 Toast.makeText(SignIn.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
 
                                 startActivity(new Intent(SignIn.this, BottomNavigation.class));
+                                finish();
                             } else {
                                 Toast.makeText(SignIn.this, "Email or Username is Incorrect", Toast.LENGTH_SHORT).show();
                                 animLoadingSignIn.setVisibility(View.INVISIBLE);

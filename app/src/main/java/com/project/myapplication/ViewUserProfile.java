@@ -119,6 +119,10 @@ public class ViewUserProfile extends AppCompatActivity {
                 Toast.makeText(ViewUserProfile.this,"directing toward chat activity", Toast.LENGTH_LONG).show();
             }
         });
+        ViewProfileViewPagerTabAdapter adapter = new ViewProfileViewPagerTabAdapter(getSupportFragmentManager());
+        viewProfileViewPager.setAdapter(adapter);
+        viewProfileTab.setupWithViewPager(viewProfileViewPager);
+
 
 
 

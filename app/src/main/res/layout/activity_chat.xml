@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bar"
+    tools:context=".ChatActivity">
+    <!--
+    <View
+        android:id="@+id/chatActivityViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/chat_activity_background_content_top"/>
+
+    <TextView
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/chatActivityBack"
+        app:layout_constraintEnd_toEndOf="@+id/chatActivitySend"
+        app:layout_constraintStart_toEndOf="@id/chatActivityBack"
+        app:layout_constraintTop_toTopOf="@+id/chatActivityBack"
+        android:text="hello"/>
+
+    <ProgressBar
+        android:id="@+id/chatActivityProgressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@id/chatActivityViewBackground"
+        app:layout_constraintEnd_toEndOf="@id/chatActivityViewBackground"
+        app:layout_constraintStart_toStartOf="@id/chatActivityViewBackground"
+        app:layout_constraintTop_toTopOf="@+id/chatActivityViewBackground"/>
+
+
+        -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:id="@+id/top"
+        android:background="@drawable/border">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/chatActivityBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:src="@drawable/back"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:maxLines="1"
+            android:id="@+id/chatActivityUserFullName"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:background="@drawable/chat_activity_background_content_top"
+        android:layout_marginBottom="60dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatActivityRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:layout_below="@+id/top"
+        android:padding="5dp"
+        android:layout_marginBottom="60dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <FrameLayout
+        android:id="@+id/chatActivitySend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/chat_activity_background_chat_input">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:padding="8dp"
+            android:src="@drawable/send_message"/>
+
+    </FrameLayout>
+    <EditText
+        android:id="@+id/chatActivityInputMessage"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_activity_background_chat_input"
+        android:hint="Type a message"
+        android:padding="13dp"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:maxLines="5"
+        android:paddingEnd="16dp"
+        android:layout_toLeftOf="@+id/chatActivitySend"
+        android:textColor="@color/white"
+        android:textColorHint="#636363"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+
+</RelativeLayout>

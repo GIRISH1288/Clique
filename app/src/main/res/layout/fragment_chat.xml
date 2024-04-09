@@ -4,10 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatFragment">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Chats"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bar">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/title_font"
+                android:gravity="center"
+                android:text="Messages"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/profileToolbar"
+            android:id="@+id/recyclerViewMessages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:id="@+id/btnFloatingActionButtonMessages"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_chat"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+
+
 
 </FrameLayout>

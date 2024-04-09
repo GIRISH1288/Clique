@@ -93,8 +93,24 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             @Override
             public void onClick(View v) {
                 String userToken = user.getNotificationToken();
+                holder.addFriendButton.setEnabled(false);
                 FcmNotificationSender fcmNotificationSender = new FcmNotificationSender(userToken, loggedUsername[0], loggedInUser[0]+" wants to connect with you!", holder.itemView.getContext());
                 DocumentReference documentReference = db.collection("users").document(connectUser).collection("request").document();
+                db.collection("users")
+                        .document(userID)
+                        .collection("request")
+                        .whereEqualTo("userID", connectUser)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    if (!task.getResult().isEmpty()) {
+                                        Toast.makeText(holder.itemView.getContext(), "Accept pending request",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        });
                 Map<String, Object> addUser = new HashMap<>();
                 addUser.put("userID", userID);
                 db.collection("users")

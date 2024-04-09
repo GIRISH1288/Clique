@@ -51,6 +51,7 @@ public class BottomNavigation extends AppCompatActivity {
                                 DocumentReference documentReference = db.collection("users").document(userID);
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("notification_token", token);
+
                                 documentReference.update(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
