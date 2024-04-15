@@ -5,37 +5,26 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="4dp">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageProfile"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/profile"
-        app:layout_constraintBottom_toBottomOf="@id/textMessage"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textMessage"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
+        android:id="@+id/textReceivedMessage"
         android:background="@drawable/chat_activity_background_received_messages"
         android:padding="12dp"
         android:textColor="@color/white"
         android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/imageProfile"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.75"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/textDateTime"
+        android:id="@+id/textReceivedDateTime"
         android:layout_marginTop="4dp"
         android:textColor="#919191"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@+id/textMessage"
-        app:layout_constraintTop_toBottomOf="@id/textMessage"/>
+        app:layout_constraintStart_toStartOf="@+id/textReceivedMessage"
+        app:layout_constraintTop_toBottomOf="@id/textReceivedMessage"/>
 
 
 

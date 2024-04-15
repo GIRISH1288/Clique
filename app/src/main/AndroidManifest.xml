@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -64,6 +65,18 @@
             android:name=".LogInActivity"
             android:exported="false" />
         <activity
+            android:name=".portfolioAdd_activity"
+            android:exported="false"/>
+        <activity
+            android:name=".ShowUserForChat"
+            android:exported="false"/>
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ShowConnections"
+            android:exported="false"/>
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -75,6 +88,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <service android:name=".FirebaseMessagingService"
+            android:permission="TODO"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
