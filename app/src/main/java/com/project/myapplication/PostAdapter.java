@@ -7,18 +7,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private List<Posts> postList;
+    private OnLikeClickListener likeClickListener;
+    private OnCommentClickListener commentClickListener;
+    private String postUserUserID;
+    private String postID;
+    private String userID;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
-    public PostAdapter(List<Posts> postList) {
+
+
+    public PostAdapter(List<Posts> postList, OnLikeClickListener likeClickListener, OnCommentClickListener commentClickListener) {
         this.postList = postList;
+        this.likeClickListener = likeClickListener;
+        this.commentClickListener = commentClickListener; // Initialize the comment click listener
     }
 
     @NonNull
@@ -28,43 +40,106 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new PostViewHolder(view);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+        Posts post = postList.get(position);
+        holder.bind(post);
+    }
 
-    public static class PostViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemCount() {
+        return postList.size();
+    }
+
+    public interface OnLikeClickListener {
+        void onLikeClick(int position, List<Posts> postList);
+    }
+    public interface OnCommentClickListener {
+        void onCommentClick(int position, List<Posts> postList);
+    }
+
+    public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CircleImageView profilePicture;
         private TextView caption;
         private TextView username;
         private ImageView postImage;
+        private ImageView likeIcon;
+        private ImageView commentIcon;
+
         public PostViewHolder(View itemView) {
             super(itemView);
             profilePicture = itemView.findViewById(R.id.postItemProfilePicture);
             caption = itemView.findViewById(R.id.postItemCaption);
             username = itemView.findViewById(R.id.postItemUserName);
             postImage = itemView.findViewById(R.id.postItemPost);
+            likeIcon = itemView.findViewById(R.id.postItemLikeIcon);
+            likeIcon.setOnClickListener(this);
+            commentIcon = itemView.findViewById(R.id.postItemCommentIcon);
+            commentIcon.setOnClickListener(this);
         }
-    }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Posts post = postList.get(position);
-        // Set data to views
-        if (holder instanceof PostViewHolder) {
-            PostViewHolder postViewHolder = (PostViewHolder) holder;
-            // Set data to views
-            Glide.with(holder.itemView.getContext())
+        public void bind(Posts post) {
+            Glide.with(itemView.getContext())
                     .load(post.getPostItemProfilePictureUrl())
-                    .placeholder(R.drawable.no_dp_selected) // Placeholder image while loading
-                    .error(R.drawable.no_dp_selected) // Error image if loading fails
-                    .circleCrop() // Crop the image into a circle
-                    .into(postViewHolder.profilePicture);
-            postViewHolder.username.setText(post.getPostItemUserName());
-            postViewHolder.caption.setText(post.getPostItemCaption());
-            Glide.with(holder.itemView.getContext())
+                    .placeholder(R.drawable.no_dp_selected)
+                    .error(R.drawable.no_dp_selected)
+                    .circleCrop()
+                    .into(profilePicture);
+            username.setText(post.getPostItemUserName());
+            caption.setText(post.getPostItemCaption());
+            postUserUserID = post.getPostUserUserID();
+            postID = post.getPostID();
+            db = FirebaseFirestore.getInstance();
+            mAuth = FirebaseAuth.getInstance();
+            userID = mAuth.getCurrentUser().getUid();
+            db.collection("users")
+                            .document(postUserUserID)
+                                    .collection("posts")
+                                            .document(postID)
+                                                    .collection("likes")
+                                                            .get()
+                                                                    .addOnCompleteListener(task -> {
+                                                                        if (task.isSuccessful()) {
+                                                                            boolean userLiked = false;
+                                                                            for (QueryDocumentSnapshot documentSnapshot: task.getResult()) {
+                                                                                String likedUserID = documentSnapshot.getString("userID");
+                                                                                if (likedUserID != null && likedUserID.equals(userID)) {
+                                                                                    // User has already liked this post, so set the flag to true
+                                                                                    userLiked = true;
+                                                                                    break; // Stop the loop
+                                                                                }
+                                                                            }
+                                                                            if (userLiked) {
+                                                                                likeIcon.setImageResource(R.drawable.after_liked);
+                                                                                likeIcon.setEnabled(false);
+                                                                            } else {
+                                                                                // User has not liked this post yet
+                                                                                // Proceed with whatever action you want to take
+                                                                            }
+                                                                        }
+                                                                    });
+
+            Glide.with(itemView.getContext())
                     .load(post.getPostItemPostUrl())
-                    .into(postViewHolder.postImage);
+                    .into(postImage);
+            likeIcon.setOnClickListener(v -> {
+                if (likeClickListener != null) {
+                    likeClickListener.onLikeClick(getAdapterPosition(), postList);
+                    likeIcon.setImageResource(R.drawable.after_liked);
+                    likeIcon.setEnabled(false);
+                }
+            });
+            commentIcon.setOnClickListener(v -> {
+                if (commentClickListener != null) {
+                    commentClickListener.onCommentClick(getAdapterPosition(), postList);
+                }
+            });
         }
-    }
-    @Override
-    public int getItemCount() {
-        return postList.size();
+
+
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 }

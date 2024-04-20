@@ -1,18 +1,17 @@
 package com.project.myapplication;
 
-import android.widget.ImageView;
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class Posts {
     private String postItemUserName;
-    private String postItemPostUrl, postItemProfilePictureUrl, postItemCaption;
+    private String postItemPostUrl, postItemProfilePictureUrl, postItemCaption, postUserUserID, postID;
 
     // Constructor
-    public Posts(String postItemProfilePictureUrl, String postItemUserName, String postItemPostUrl, String postItemCaption) {
+    public Posts(String postItemProfilePictureUrl, String postItemUserName, String postItemPostUrl, String postItemCaption, String postUserUserID, String postID) {
         this.postItemProfilePictureUrl = postItemProfilePictureUrl;
         this.postItemUserName = postItemUserName;
         this.postItemPostUrl = postItemPostUrl;
         this.postItemCaption = postItemCaption;
+        this.postUserUserID = postUserUserID;
+        this.postID = postID;
     }
 
     // Getters and setters
@@ -45,6 +44,22 @@ public class Posts {
 
     public void setPostItemPost(String postItemPostUrl) {
         this.postItemPostUrl= postItemPostUrl;
+    }
+
+    public String getPostUserUserID() {
+        return postUserUserID;
+    }
+
+    public void setPostUserUserID(String postUserUserID) {
+        this.postUserUserID = postUserUserID;
+    }
+
+    public String getPostID() {
+        return postID;
+    }
+
+    public void setPostID(String postID) {
+        this.postID = postID;
     }
 }
 

@@ -1,14 +1,13 @@
 package com.project.myapplication;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +27,9 @@ public class ProfilePostsFragment extends Fragment {
     private List<Posts> postList;
     FirebaseFirestore db;
     StorageReference storageReference;
+    String userID;
+    LikeClickListener likeClickListener;
+    CommentClickListener commentClickListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +37,10 @@ public class ProfilePostsFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         postList = new ArrayList<>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userID = mAuth.getCurrentUser().getUid();
+        userID = mAuth.getCurrentUser().getUid();
+        likeClickListener = new LikeClickListener(requireContext()); // 'requireContext()' returns the fragment's context
+        commentClickListener = new CommentClickListener(requireContext());
+
         recyclerView = rootView.findViewById(R.id.postsRecyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -56,14 +61,16 @@ public class ProfilePostsFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            String postID = document.getId();
                             String caption = document.getString("caption");
                             String postImageUrl = document.getString("imageUrl");
-                            Posts post = new Posts(profileImageUrl, username, postImageUrl, caption);
+                            Posts post = new Posts(profileImageUrl, username, postImageUrl, caption, userID, postID);
                             postList.add(post);
                         }
                     }
-                    postAdapter = new PostAdapter(postList);
+                    PostAdapter postAdapter = new PostAdapter(postList, likeClickListener, commentClickListener);
                     recyclerView.setAdapter(postAdapter);
+
                 });
         return rootView;
     }

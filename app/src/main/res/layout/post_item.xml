@@ -41,13 +41,17 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:padding="3dp">
+
             <ImageView
                 android:id="@+id/postItemLikeIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:layout_margin="3dp"
-                android:src="@drawable/before_liked"/>
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/before_liked" />
             <ImageView
                 android:id="@+id/postItemCommentIcon"
                 android:layout_toRightOf="@+id/postItemLikeIcon"

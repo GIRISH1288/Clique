@@ -17,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreateChatUserAdapter extends RecyclerView.Adapter<CreateChatUserAdapter.UserViewHolder> {
     private final List<MessageUser> messageUserList;
-    private OnItemClickListener mlistener;
+    private final OnItemClickListener mlistener;
 
     public interface OnItemClickListener {
         void onItemClick(String userId);
@@ -60,8 +60,9 @@ public class CreateChatUserAdapter extends RecyclerView.Adapter<CreateChatUserAd
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
-        private CircleImageView messagesUserProfilePicture;
-        private TextView messagesUserFullName, tvLastMessage;
+        private final CircleImageView messagesUserProfilePicture;
+        private final TextView messagesUserFullName;
+        private final TextView tvLastMessage;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
