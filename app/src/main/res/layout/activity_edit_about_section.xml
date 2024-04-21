@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/profileToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_50sdp"
         android:background="@color/bar">
 
         <TextView
@@ -20,27 +19,27 @@
             android:gravity="center"
             android:text="About Section"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="@dimen/_25sdp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/etabout"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/_10sdp"
         android:inputType="text"
         android:background="@drawable/border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/_8sdp"
         android:hint="About Yourself" />
     <EditText
         android:id="@+id/etskills"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/_10sdp"
         android:background="@drawable/border"
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/_8sdp"
         android:hint="Add your skills" />
 
 
@@ -50,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:paddingBottom="100dp">
+        android:paddingBottom="@dimen/_100sdp">
 
 
 
@@ -59,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SET ABOUT"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="@dimen/_8sdp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,49 +1,54 @@
-
 package com.project.myapplication;
 
 public class portfoliostr {
-    private String portfolioname;
-    private String portfoliodescritpion;
-    private String projectPictureUrl; // URL of profile picture in Firebase Storage or download URL if stored locally
-    private String projectlink;
+    String projectname, projectdescription, projectImage;
+    long timestamp; // Add timestamp field
+    private long TIMESTAMP_FIELD;
 
-
-
-    public portfoliostr(String username, String fullName, String profilePictureUrl , String projectlink) {
-        this.portfolioname = username;
-        this.portfoliodescritpion = fullName;
-        this.projectPictureUrl = profilePictureUrl;
-        this.projectlink=projectlink;
+    public portfoliostr(String projectname, String projectdescription, String projectImage, long timestamp) {
+        this.projectname = projectname;
+        this.projectdescription = projectdescription;
+        this.projectImage = projectImage;
+        this.timestamp = timestamp;
     }
 
-    public String getPortfolioname() {
-        return portfolioname;
+    public String getProjectname() {
+        return projectname;
     }
 
-    public void setPortfolioname(String portfolioname) {
-        this.portfolioname = portfolioname;
+    public void setProjectname(String projectname) {
+        this.projectname = projectname;
     }
 
-    public String getPortfoliodescritpion() {
-        return portfoliodescritpion;
+    public String getProjectdescription() {
+        return projectdescription;
     }
 
-    public void setPortfoliodescritpion(String portfoliodescritpion) {
-        this.portfoliodescritpion = portfoliodescritpion;
+    public void setProjectdescription(String projectdescription) {
+        this.projectdescription = projectdescription;
     }
 
-    public String getProjectPictureUrl() {
-        return projectPictureUrl;
+    public String getProjectImage() {
+        return projectImage;
     }
 
-    public void setProjectPictureUrl(String projectPictureUrl) {
-        this.projectPictureUrl = projectPictureUrl;
-    }
-    public String getProjectlink() {
-        return projectlink;
+    public void setProjectImage(String projectImage) {
+        this.projectImage = projectImage;
     }
 
-    public void setProjectlink(String projectlink) {
-        this.projectlink = projectlink;
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public long getTIMESTAMP_FIELD() {
+        return TIMESTAMP_FIELD;
+    }
+
+    public void setTIMESTAMP_FIELD(long timestampField) {
+        this.TIMESTAMP_FIELD = timestampField;
     }
 }

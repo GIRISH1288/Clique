@@ -10,69 +10,69 @@
         android:id="@+id/createProfilePersonalInformation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="20dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_20sdp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:text="Personal Information"
-            android:textSize="20sp"
+            android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
             android:textColor="#A36DFA"/>
         <EditText
             android:id="@+id/etCreateProfileFullName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_height="@dimen/_50sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/border"
             android:hint="Enter Your Name" />
         <EditText
             android:id="@+id/etCreateProfileUserName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_height="@dimen/_50sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:layout_marginTop="10dp"
             android:background="@drawable/border"
             android:hint="Enter Unique User Name" />
         <AutoCompleteTextView
             android:id="@+id/tvCreateProfileCity"
             android:layout_width="match_parent"
-            android:paddingLeft="10dp"
+            android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/border"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:hint="City You Live In"/>
 
         <EditText
             android:id="@+id/etCreateProfileBirthDate"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_height="@dimen/_50sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/border"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:hint="Birth Date"
             android:focusable="false"
             android:onClick="showDatePickerDialog" />
         <Spinner
             android:id="@+id/spinnerCreateProfileGender"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/border"
             android:hint="Select Gender"/>
         <Button
             android:id="@+id/btnCreateProfileCreateAccount"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="50dp"
-            android:paddingLeft="10dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:paddingLeft="@dimen/_10sdp"
             android:background="@drawable/border"
             android:text="Create Account"
             android:textStyle="bold"
-            android:textSize="17sp"/>
+            android:textSize="@dimen/_17sdp"/>
     </LinearLayout>
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animLoading"

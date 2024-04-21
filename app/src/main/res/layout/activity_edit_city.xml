@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bar">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -19,7 +18,7 @@
             android:gravity="center"
             android:text="Clique"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="@dimen/_25sdp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
     <LinearLayout
@@ -27,33 +26,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="40dp">
+        android:padding="@dimen/_40sdp">
         <AutoCompleteTextView
             android:id="@+id/etEditCity"
             android:layout_width="match_parent"
             android:background="@drawable/border"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/_50sdp"
             android:ems="20"
-            android:textSize="15sp"
-            android:layout_marginTop="10dp"
+            android:textSize="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
             android:hint="City You Live In"/>
         <Button
             android:id="@+id/btnEditUpdateCity"
             android:layout_width="match_parent"
-            android:layout_marginVertical="5dp"
-            android:layout_height="50dp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:layout_height="@dimen/_50sdp"
             android:background="@drawable/border"
             android:text="Update"
-            android:textSize="15sp"
+            android:textSize="@dimen/_15sdp"
             android:gravity="center"/>
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animgirl"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="@dimen/_300sdp"
+            android:layout_height="@dimen/_300sdp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/sign_up_girl"/>
     </LinearLayout>
-
 </LinearLayout>

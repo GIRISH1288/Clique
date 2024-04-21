@@ -75,10 +75,13 @@
         android:id="@+id/chatActivityRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:orientation="vertical"
+        android:overScrollMode="never"
         android:layout_below="@+id/top"
         android:padding="5dp"
-        android:layout_marginBottom="60dp"/>
+        android:layout_marginBottom="60dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     <FrameLayout
         android:id="@+id/chatActivitySend"
         android:layout_width="50dp"

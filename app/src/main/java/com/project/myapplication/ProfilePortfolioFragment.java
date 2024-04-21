@@ -1,60 +1,83 @@
 package com.project.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ProfilePortfolioFragment extends Fragment {
-   private FloatingActionButton btnaddportfolio1;
-   private RecyclerView portfoliorecyler;
-   //private PortfolioAdapter portfolioAdapter;
-    private String projectname;
-    private String projectdescription;
-    private String projectimage , projectlink;
+    private FloatingActionButton btnaddportfolio1;
+    private RecyclerView portfoliorecyler;
+    private List<portfoliostr> projectlist;
+    private FirebaseFirestore db;
+    private portfolioAdapter portfolioAdapter;
 
-   private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-    private ArrayList<portfoliostr> arrportfolio = new ArrayList<>();
-    Uri uri;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_portfolio, container, false);
-        btnaddportfolio1=view.findViewById(R.id.btnaddportfolio1);
-        portfoliorecyler=view.findViewById(R.id.portfoliorecyler);
-        portfoliostr projectstr =new portfoliostr(projectimage,projectdescription,projectimage,projectlink);
+        db = FirebaseFirestore.getInstance();
+        projectlist = new ArrayList<>();
+        btnaddportfolio1 = view.findViewById(R.id.btnaddportfolio1);
+        portfoliorecyler = view.findViewById(R.id.portfoliorecyler);
+        portfoliorecyler.setHasFixedSize(true);
         portfoliorecyler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        btnaddportfolio1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),portfolioAdd_activity.class);
-                startActivity(intent);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String userID = mAuth.getCurrentUser().getUid();
 
-            }
+        db.collection("users").document(userID).collection("projectdetails")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String projectName = document.getString("projectName");
+                            String projectDescription = document.getString("projectDescription");
+                            String projectImage = document.getString("projectImage");
+                            // Retrieve the timestamp field from the document
+                            Long timestampLong = document.getLong("timestamp"); // Assuming timestamp field name is "timestamp"
+                            long timestamp = timestampLong != null ? timestampLong : 0; // Null check and fallback value
+                            portfoliostr project = new portfoliostr(projectName, projectDescription, projectImage, timestamp);
+                            projectlist.add(project);
+                        }
+                        // Sort the list with newest items first based on timestamp
+                        Collections.sort(projectlist, new Comparator<portfoliostr>() {
+                            @Override
+                            public int compare(portfoliostr o1, portfoliostr o2) {
+                                // Compare the timestamps of o1 and o2
+                                return Long.compare(o2.getTimestamp(), o1.getTimestamp());
+                            }
+                        });
+
+                        // Initialize the adapter after sorting the list
+                        portfolioAdapter = new portfolioAdapter(projectlist);
+                        portfoliorecyler.setAdapter(portfolioAdapter);
+                        // Notify adapter after adding all items
+                        portfolioAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
+        // Button to add a new portfolio item
+        btnaddportfolio1.setOnClickListener(view1 -> {
+            Intent intent = new Intent(getActivity(), portfolioAdd_activity.class);
+            startActivity(intent);
         });
-
-
 
         return view;
     }
