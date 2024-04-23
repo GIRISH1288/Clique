@@ -1,7 +1,7 @@
 package com.project.myapplication;
 
 import android.content.Context;
-import android.widget.Toast;
+import android.content.Intent;
 
 import java.util.List;
 
@@ -12,6 +12,9 @@ public class CommentClickListener implements PostAdapter.OnCommentClickListener{
     }
     @Override
     public void onCommentClick(int position, List<Posts> postList) {
-        Toast.makeText(mContext, "Clicked on Comment", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mContext, ShowComment.class);
+        intent.putExtra("postID", postList.get(position).getPostID());
+        intent.putExtra("postUserUserID", postList.get(position).getPostUserUserID());
+        mContext.startActivity(intent);
     }
 }

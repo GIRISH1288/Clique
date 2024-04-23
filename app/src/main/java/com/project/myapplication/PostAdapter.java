@@ -1,36 +1,47 @@
 package com.project.myapplication;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private List<Posts> postList;
     private OnLikeClickListener likeClickListener;
     private OnCommentClickListener commentClickListener;
+    private OnViewLikeClickListener viewLikeClickListener;
+    private OnViewCommentClickListener viewCommentClickListener;
     private String postUserUserID;
     private String postID;
     private String userID;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    Context context;
 
 
 
-    public PostAdapter(List<Posts> postList, OnLikeClickListener likeClickListener, OnCommentClickListener commentClickListener) {
+    public PostAdapter(List<Posts> postList, OnLikeClickListener likeClickListener, OnCommentClickListener commentClickListener, OnViewLikeClickListener viewLikeClickListener, OnViewCommentClickListener viewCommentClickListener, Context context) {
         this.postList = postList;
         this.likeClickListener = likeClickListener;
         this.commentClickListener = commentClickListener; // Initialize the comment click listener
+        this.viewLikeClickListener = viewLikeClickListener;
+        this.viewCommentClickListener = viewCommentClickListener;
+        this.context =context;
     }
 
     @NonNull
@@ -57,6 +68,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     public interface OnCommentClickListener {
         void onCommentClick(int position, List<Posts> postList);
     }
+    public interface OnViewLikeClickListener {
+        void onViewLikeClick(int position, List<Posts> postList, Context context);
+    }
+    public interface OnViewCommentClickListener {
+        void onViewCommentClick(int position, List<Posts> postList, Context context);
+    }
 
     public class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private CircleImageView profilePicture;
@@ -65,6 +82,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private ImageView postImage;
         private ImageView likeIcon;
         private ImageView commentIcon;
+        private TextView viewLikes;
+        private TextView viewComments;
 
         public PostViewHolder(View itemView) {
             super(itemView);
@@ -73,6 +92,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             username = itemView.findViewById(R.id.postItemUserName);
             postImage = itemView.findViewById(R.id.postItemPost);
             likeIcon = itemView.findViewById(R.id.postItemLikeIcon);
+            viewLikes = itemView.findViewById(R.id.postItemViewLikes);
+            viewLikes.setOnClickListener(this);
+            viewComments = itemView.findViewById(R.id.postItemViewComments);
             likeIcon.setOnClickListener(this);
             commentIcon = itemView.findViewById(R.id.postItemCommentIcon);
             commentIcon.setOnClickListener(this);
@@ -132,6 +154,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             commentIcon.setOnClickListener(v -> {
                 if (commentClickListener != null) {
                     commentClickListener.onCommentClick(getAdapterPosition(), postList);
+                }
+            });
+            viewLikes.setOnClickListener(v -> {
+                if (viewLikeClickListener != null) {
+                    viewLikeClickListener.onViewLikeClick(getAdapterPosition(), postList, context);
+                    Toast.makeText(itemView.getContext(), "touched on click", Toast.LENGTH_LONG).show();
+                }
+            });
+            viewComments.setOnClickListener(v -> {
+                if (viewCommentClickListener != null) {
+                    viewCommentClickListener.onViewCommentClick(getAdapterPosition(), postList, context);
                 }
             });
         }

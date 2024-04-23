@@ -52,7 +52,7 @@ public class SignIn extends AppCompatActivity {
                                 /*
                                      Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    updateUI(user);
+                                    updateUI(user);startActivity(new Intent(SignIn.this, BottomNavigation.class));
                                     */
                                 Toast.makeText(SignIn.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
 

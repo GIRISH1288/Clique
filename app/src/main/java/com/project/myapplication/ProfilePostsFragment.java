@@ -30,6 +30,8 @@ public class ProfilePostsFragment extends Fragment {
     String userID;
     LikeClickListener likeClickListener;
     CommentClickListener commentClickListener;
+    ViewLikeClickListener viewLikeClickListener;
+    ViewCommentClickListener viewCommentClickListener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class ProfilePostsFragment extends Fragment {
         userID = mAuth.getCurrentUser().getUid();
         likeClickListener = new LikeClickListener(requireContext()); // 'requireContext()' returns the fragment's context
         commentClickListener = new CommentClickListener(requireContext());
+        viewLikeClickListener = new ViewLikeClickListener();
+        viewCommentClickListener = new ViewCommentClickListener();
 
         recyclerView = rootView.findViewById(R.id.postsRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -68,7 +72,7 @@ public class ProfilePostsFragment extends Fragment {
                             postList.add(post);
                         }
                     }
-                    PostAdapter postAdapter = new PostAdapter(postList, likeClickListener, commentClickListener);
+                    PostAdapter postAdapter = new PostAdapter(postList, likeClickListener, commentClickListener, viewLikeClickListener, viewCommentClickListener, requireContext());
                     recyclerView.setAdapter(postAdapter);
 
                 });
