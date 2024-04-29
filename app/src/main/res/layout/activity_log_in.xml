@@ -20,34 +20,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp">
+        android:layout_marginTop="@dimen/_470sdp">
         <Button
             android:id="@+id/btnSignIn"
-            android:layout_width="250dp"
+            android:layout_width="@dimen/_250sdp"
             android:layout_height="wrap_content"
             android:text="Log In"
             android:background="@drawable/border"
-            android:layout_margin="10dp"/>
+            android:layout_margin="@dimen/_10sdp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/btnContinueWithGoogle"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/_40sdp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/border"
         android:layout_below="@+id/signInSignUp"
         android:gravity="center">
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:src="@drawable/google"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:text="Continue with Google"
-            android:textSize="17sp"
+            android:textSize="@dimen/_17sdp"
             android:textStyle="bold"
             android:gravity="center"/>
     </LinearLayout>
@@ -55,11 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/btnContinueWithGoogle"
         android:layout_centerHorizontal="true"
-        android:layout_height="30dp"
-        android:paddingVertical="5dp">
+        android:layout_height="@dimen/_30sdp"
+        android:paddingVertical="@dimen/_5sdp">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/_30sdp"
             android:text="Don't have an account?"
             android:textStyle="bold"/>
         <TextView

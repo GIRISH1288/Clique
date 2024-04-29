@@ -1,15 +1,25 @@
 package com.project.myapplication;
 
 public class portfoliostr {
-    String projectname, projectdescription, projectImage;
-    long timestamp; // Add timestamp field
-    private long TIMESTAMP_FIELD;
+    String projectId; // Add projectId field
+    String projectname, projectdescription, projectImage ,projectlink;
+    // long timestamp; // Add timestamp field
+    //private long TIMESTAMP_FIELD;
 
-    public portfoliostr(String projectname, String projectdescription, String projectImage, long timestamp) {
+    public String getProjectlink() {
+        return projectlink;
+    }
+
+    public void setProjectlink(String projectlink) {
+        this.projectlink = projectlink;
+    }
+
+    public portfoliostr(String projectId, String projectname, String projectdescription, String projectImage, String projectlink) {
+        this.projectId = projectId;
         this.projectname = projectname;
         this.projectdescription = projectdescription;
         this.projectImage = projectImage;
-        this.timestamp = timestamp;
+        this.projectlink=projectlink;
     }
 
     public String getProjectname() {
@@ -36,6 +46,20 @@ public class portfoliostr {
         this.projectImage = projectImage;
     }
 
+    public String getProjectLink() {
+        return projectlink;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+}
+
+/*
     public long getTimestamp() {
         return timestamp;
     }
@@ -51,4 +75,6 @@ public class portfoliostr {
     public void setTIMESTAMP_FIELD(long timestampField) {
         this.TIMESTAMP_FIELD = timestampField;
     }
-}
+
+ */
+

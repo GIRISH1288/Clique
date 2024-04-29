@@ -52,31 +52,24 @@ public class ProfilePortfolioFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            String projectId = document.getId(); // Retrieve projectId
                             String projectName = document.getString("projectName");
                             String projectDescription = document.getString("projectDescription");
                             String projectImage = document.getString("projectImage");
-                            // Retrieve the timestamp field from the document
-                            Long timestampLong = document.getLong("timestamp"); // Assuming timestamp field name is "timestamp"
-                            long timestamp = timestampLong != null ? timestampLong : 0; // Null check and fallback value
-                            portfoliostr project = new portfoliostr(projectName, projectDescription, projectImage, timestamp);
+                            String projectlink = document.getString("projectlink");
+                            portfoliostr project = new portfoliostr(projectId, projectName, projectDescription, projectImage ,projectlink); // Pass projectId to the constructor
                             projectlist.add(project);
                         }
-                        // Sort the list with newest items first based on timestamp
-                        Collections.sort(projectlist, new Comparator<portfoliostr>() {
-                            @Override
-                            public int compare(portfoliostr o1, portfoliostr o2) {
-                                // Compare the timestamps of o1 and o2
-                                return Long.compare(o2.getTimestamp(), o1.getTimestamp());
-                            }
-                        });
-
-                        // Initialize the adapter after sorting the list
+                        // Initialize the adapter
                         portfolioAdapter = new portfolioAdapter(projectlist);
                         portfoliorecyler.setAdapter(portfolioAdapter);
                         // Notify adapter after adding all items
                         portfolioAdapter.notifyDataSetChanged();
+                    } else {
+                        // Handle errors
                     }
                 });
+
 
 
         // Button to add a new portfolio item
@@ -88,4 +81,5 @@ public class ProfilePortfolioFragment extends Fragment {
         return view;
     }
 }
+
 
