@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="507dp"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/post_item_bar_bottom">
@@ -60,22 +60,6 @@
                 android:layout_height="30dp"
                 android:layout_margin="3dp"
                 android:src="@drawable/comment"/>
-            <ImageView
-                android:id="@+id/postItemShareIcon"
-                android:layout_width="30dp"
-                android:layout_toRightOf="@+id/postItemCommentIcon"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="3dp"
-                android:src="@drawable/share_post"/>
-            <ImageView
-                android:id="@+id/postItemDownloadIcon"
-                android:layout_width="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="3dp"
-                android:src="@drawable/download_post"/>
 
         </RelativeLayout>
         <TextView

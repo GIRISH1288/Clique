@@ -9,9 +9,10 @@
     <item android:id="@+id/nav_notification"
         android:title=""
         android:icon="@drawable/notification"/>
+    <!--
     <item android:id="@+id/nav_message"
         android:title=""
-        android:icon="@drawable/message"/>
+        android:icon="@drawable/message"/>-->
     <item android:id="@+id/nav_profile"
         android:title=""
         android:icon="@drawable/profile"/>

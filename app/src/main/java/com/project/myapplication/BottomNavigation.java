@@ -68,18 +68,23 @@ public class BottomNavigation extends AppCompatActivity {
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.nav_home) {
-                    loadFrag(new HomeFragment());
-                } else if (id == R.id.nav_add) {
-                    loadFrag(new CreatePostFragment());
-                } else if (id == R.id.nav_notification) {
-                    loadFrag(new NotificationFragment());
-                } else if (id == R.id.nav_message) {
-                    loadFrag(new ChatFragment());
-                } else {
-                    loadFrag(new ProfileFragment());
+                try {
+                    int id = item.getItemId();
+                    if (id == R.id.nav_home) {
+                        loadFrag(new HomeFragment());
+                    } else if (id == R.id.nav_add) {
+                        loadFrag(new CreatePostFragment());
+                    } else if (id == R.id.nav_notification) {
+                        loadFrag(new NotificationFragment());
+                    } else if (false/*id == R.id.nav_message*/) {
+                        loadFrag(new ChatFragment());
+                    } else {
+                        loadFrag(new ProfileFragment());
+                    }
+                } catch (Exception e) {
+
                 }
+
                 return true;
             }
         });
