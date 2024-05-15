@@ -32,6 +32,9 @@ public class ProfilePostsFragment extends Fragment {
     CommentClickListener commentClickListener;
     ViewLikeClickListener viewLikeClickListener;
     ViewCommentClickListener viewCommentClickListener;
+    public ProfilePostsFragment(String userID) {
+        this.userID = userID;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,7 +42,6 @@ public class ProfilePostsFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         postList = new ArrayList<>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
         likeClickListener = new LikeClickListener(requireContext()); // 'requireContext()' returns the fragment's context
         commentClickListener = new CommentClickListener(requireContext());
         viewLikeClickListener = new ViewLikeClickListener();

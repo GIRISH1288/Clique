@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -27,7 +26,12 @@ public class ProfilePortfolioFragment extends Fragment {
     private List<portfoliostr> projectlist;
     private FirebaseFirestore db;
     private portfolioAdapter portfolioAdapter;
-
+    boolean showAddButton;
+    String userID;
+    public ProfilePortfolioFragment(String userID, boolean showAddButton) {
+        this.userID = userID;
+        this.showAddButton = showAddButton;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,11 +39,13 @@ public class ProfilePortfolioFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         projectlist = new ArrayList<>();
         btnaddportfolio1 = view.findViewById(R.id.btnaddportfolio1);
+        if (!showAddButton) {
+            btnaddportfolio1.setVisibility(View.GONE);
+        }
         portfoliorecyler = view.findViewById(R.id.portfoliorecyler);
         portfoliorecyler.setHasFixedSize(true);
         portfoliorecyler.setLayoutManager(new LinearLayoutManager(requireContext()));
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userID = mAuth.getCurrentUser().getUid();
 
         db.collection("users").document(userID).collection("projectdetails")
                 .get()

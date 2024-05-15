@@ -35,6 +35,7 @@ public class ViewUserProfile extends AppCompatActivity {
     FirebaseAuth mAuth;
     ImageButton viewProfileMessageUser;
     FirebaseFirestore db;
+    boolean showAddButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class ViewUserProfile extends AppCompatActivity {
         viewProfileViewPager = findViewById(R.id.viewProfileViewPager);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        showAddButton = false;
         DocumentReference documentReference = db.collection("users").document(viewUserID);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -119,7 +121,7 @@ public class ViewUserProfile extends AppCompatActivity {
                 Toast.makeText(ViewUserProfile.this,"directing toward chat activity", Toast.LENGTH_LONG).show();
             }
         });
-        ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getSupportFragmentManager());
+        ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getSupportFragmentManager(), viewUserID, showAddButton);
         viewProfileViewPager.setAdapter(adapter);
         viewProfileTab.setupWithViewPager(viewProfileViewPager);
 

@@ -1,6 +1,9 @@
 package com.project.myapplication;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,10 +22,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
     androidx.appcompat.widget.SearchView searchView;
+    ImageView search_user;
+    EditText etSearchUser;
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<User> userList;
@@ -36,6 +40,8 @@ public class SearchActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         String userID = mAuth.getCurrentUser().getUid();
+        etSearchUser = findViewById(R.id.etSearchUser);
+        search_user = findViewById(R.id.search_user);
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCityPeople);
         recyclerView.setHasFixedSize(true);
@@ -62,25 +68,31 @@ public class SearchActivity extends AppCompatActivity {
                 Toast.makeText(SearchActivity.this, "Error loading Page", Toast.LENGTH_LONG).show();
             }
         });
+        search_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userList.clear();
+                retrieveUserData();
+            }
+        });
 
 
-        // Retrieve user data from Firestore
-        retrieveUserData();
     }
     private void retrieveUserData() {
         db.collection("users")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        userList.clear(); // Clear previous results
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             // Retrieve user data from Firestore document
                             String username = document.getString("username");
-                            String fullName = document.getString("name");
-                            String userID = document.getId();
-                            String profileImageUrl = document.getString("profileImageUrl");
-                            String notificationToken = document.getString("notification_token");
-                            User user = new User(username, fullName, profileImageUrl, notificationToken, userID);
-                            if (Objects.equals(username, loggedInUsername)) {} else {
+                            if (username != null && username.toLowerCase().contains(etSearchUser.getText().toString().toLowerCase())) {
+                                String fullName = document.getString("name");
+                                String userID = document.getId();
+                                String profileImageUrl = document.getString("profileImageUrl");
+                                String notificationToken = document.getString("notification_token");
+                                User user = new User(username, fullName, profileImageUrl, notificationToken, userID);
                                 userList.add(user);
                             }
                         }
@@ -94,4 +106,5 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

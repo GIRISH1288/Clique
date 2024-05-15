@@ -1,6 +1,5 @@
 package com.project.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +47,7 @@ public class ProfileFragment extends Fragment {
     String userID;
     StorageReference storageReference;
     ImageView ivProfileEditButton;
+    boolean showAddButton;
     Button btnProfileShowConnections, btnProfileShowCommunities;
     @Nullable
     @Override
@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.profileToolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar); // Use getActivity() here
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+        showAddButton = true;
 
 
         profileTab = view.findViewById(R.id.profileTab);
@@ -143,7 +144,7 @@ public class ProfileFragment extends Fragment {
         });
 
 
-        ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getChildFragmentManager());
+        ProfileViewPagerTabAdapter adapter = new ProfileViewPagerTabAdapter(getChildFragmentManager(),userID, showAddButton);
         profileViewPager.setAdapter(adapter);
         profileTab.setupWithViewPager(profileViewPager);
         ivProfileEditButton.setOnClickListener(new View.OnClickListener() {

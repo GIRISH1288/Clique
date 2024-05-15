@@ -1,29 +1,23 @@
 package com.project.myapplication;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.text.DateFormatSymbols;
 
 
 public class ProfileAboutFragment extends Fragment {
@@ -33,6 +27,10 @@ public class ProfileAboutFragment extends Fragment {
     FirebaseAuth mAuth;
     String userID;
     StorageReference storageReference;
+
+    public ProfileAboutFragment(String userID) {
+        this.userID = userID;
+    }
 
 
     @Override
@@ -45,7 +43,6 @@ public class ProfileAboutFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = db.collection("users").document(userID);
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

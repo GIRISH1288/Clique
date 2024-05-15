@@ -6,18 +6,22 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ProfileViewPagerTabAdapter extends FragmentPagerAdapter {
-    public ProfileViewPagerTabAdapter(@NonNull FragmentManager fm) {
+    String userID;
+    boolean showAddButton;
+    public ProfileViewPagerTabAdapter(@NonNull FragmentManager fm, String userID, boolean showAddButton) {
         super(fm);
+        this.userID = userID;
+        this.showAddButton = showAddButton;
     }
 
     @Override
     public Fragment getItem(int position) {
         if (position==0) {
-            return new ProfileAboutFragment();
+            return new ProfileAboutFragment(userID);
         } else if (position == 1) {
-            return new ProfilePostsFragment();
+            return new ProfilePostsFragment(userID);
         } else {
-            return new ProfilePortfolioFragment();
+            return new ProfilePortfolioFragment(userID, showAddButton);
         }
     }
 
