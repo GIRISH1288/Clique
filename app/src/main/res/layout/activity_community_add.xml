@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".portfolioAdd_activity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/profileToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/title_font"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:text="Create a Community "
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/addcommunityphoto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/tvaddwork"
+        android:layout_marginTop="8dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/add"
+
+        />
+    <TextView
+        android:id="@+id/tvaddwork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/etcommunityname"
+        android:text="Add picture"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etcommunityname"
+        android:layout_width="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border"
+        android:ems="25"
+        android:hint="Community name"
+        android:inputType="text"
+        android:textSize="12sp"
+        android:gravity="center" />
+    <EditText
+        android:id="@+id/etcommunitydescription"
+        android:layout_below="@+id/etcommunityname"
+        android:layout_width="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border"
+        android:ems="25"
+        android:hint="Add Community Description"
+        android:inputType="text"
+        android:textSize="12sp"
+        android:gravity="center" />
+    <EditText
+        android:id="@+id/etcommunitycreatorinfo"
+        android:layout_below="@+id/etcommunitydescription"
+        android:layout_width="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/border"
+        android:ems="25"
+        android:hint="Community creator info"
+        android:inputType="text"
+        android:textSize="12sp"
+        android:gravity="center" />
+
+
+    <Button
+        android:id="@+id/btnaddcommunity"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/etcommunitycreatorinfo"
+        android:layout_marginVertical="5dp"
+        android:layout_marginTop="164dp"
+        android:ems="25"
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Add Community"
+        android:textSize="15sp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/portfolioanim"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_above="@+id/addcommunityphoto"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="8dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/community" />
+
+    <ImageView
+        android:id="@+id/ivcommunitypic"
+        android:layout_width="match_parent"
+        android:layout_height="121dp"
+        android:layout_below="@+id/btnaddcommunity"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="33dp" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        android:visibility="invisible"
+        android:background="#80000000"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading_animation"/>
+
+</RelativeLayout>

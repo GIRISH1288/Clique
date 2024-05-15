@@ -42,12 +42,15 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.MyVi
         this.Communitylist = new ArrayList<>(communitylist);
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_card, parent, false);
+        Context context = parent.getContext(); // Use the parent view's context
+        View view = LayoutInflater.from(context).inflate(R.layout.community_card, parent, false);
         return new MyViewHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -67,15 +70,18 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.MyVi
         holder.communitycard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(holder.itemView.getContext(), "Card clicked: " + communitystr.getCommunityName(), Toast.LENGTH_SHORT).show();
-                // Open the new activity here
-                //Intent intent = new Intent(context, communityposts.class);
+                Context context = v.getContext(); // Use the parent view's context
+                Intent intent = new Intent(context, communitypostpage.class);
                 // Pass any data needed to the new activity using intent extras
-               // intent.putExtra("communityID", communitystr.getCommunityID());
+                intent.putExtra("communityID", communitystr.getCommunityID());
+                intent.putExtra("communityName", communitystr.getCommunityName());
+                intent.putExtra("communityDescription", communitystr.getCommunityDescription());
+                intent.putExtra("communityImage", communitystr.getCommunityImage());
                 // Start the activity
-                //context.startActivity(intent);
+                context.startActivity(intent);
             }
         });
+
     }
 
     public interface OnClickListener {
