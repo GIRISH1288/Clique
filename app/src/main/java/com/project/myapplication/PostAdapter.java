@@ -1,7 +1,6 @@
 package com.project.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,7 +51,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return new PostViewHolder(view);
     }
 
-
+    @Override
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+        Posts post = postList.get(position);
+        holder.bind(post);
+    }
 
     @Override
     public int getItemCount() {
@@ -108,11 +103,56 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         public void bind(Posts post) {
+            Glide.with(itemView.getContext())
+                    .load(post.getPostItemProfilePictureUrl())
+                    .placeholder(R.drawable.no_dp_selected)
+                    .error(R.drawable.no_dp_selected)
+                    .circleCrop()
+                    .into(profilePicture);
+            username.setText(post.getPostItemUserName());
+            caption.setText(post.getPostItemCaption());
+            postUserUserID = post.getPostUserUserID();
+            postID = post.getPostID();
+            db = FirebaseFirestore.getInstance();
+            mAuth = FirebaseAuth.getInstance();
+            userID = mAuth.getCurrentUser().getUid();
+            db.collection("users")
+                            .document(postUserUserID)
+                                    .collection("posts")
+                                            .document(postID)
+                                                    .collection("likes")
+                                                            .get()
+                                                                    .addOnCompleteListener(task -> {
+                                                                        if (task.isSuccessful()) {
+                                                                            boolean userLiked = false;
+                                                                            for (QueryDocumentSnapshot documentSnapshot: task.getResult()) {
+                                                                                String likedUserID = documentSnapshot.getString("userID");
+                                                                                if (likedUserID != null && likedUserID.equals(userID)) {
+                                                                                    // User has already liked this post, so set the flag to true
+                                                                                    userLiked = true;
+                                                                                    break; // Stop the loop
+                                                                                }
+                                                                            }
+                                                                            if (userLiked) {
+                                                                                likeIcon.setImageResource(R.drawable.after_liked);
+                                                                                likeIcon.setEnabled(false);
+                                                                            } else {
+                                                                                // User has not liked this post yet
+                                                                                // Proceed with whatever action you want to take
+                                                                            }
+                                                                        }
+                                                                    });
 
-
-
-
-
+            Glide.with(itemView.getContext())
+                    .load(post.getPostItemPostUrl())
+                    .into(postImage);
+            likeIcon.setOnClickListener(v -> {
+                if (likeClickListener != null) {
+                    likeClickListener.onLikeClick(getAdapterPosition(), postList);
+                    likeIcon.setImageResource(R.drawable.after_liked);
+                    likeIcon.setEnabled(false);
+                }
+            });
             commentIcon.setOnClickListener(v -> {
                 if (commentClickListener != null) {
                     commentClickListener.onCommentClick(postID, postUserUserID);
@@ -136,124 +176,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public void onClick(View v) {
 
         }
-    }
-    String username;
-    @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        Posts post = postList.get(position);
-        Glide.with(holder.itemView.getContext())
-                .load(post.getPostItemProfilePictureUrl())
-                .placeholder(R.drawable.no_dp_selected)
-                .error(R.drawable.no_dp_selected)
-                .circleCrop()
-                .into(holder.profilePicture);
-        holder.username.setText(post.getPostItemUserName());
-        holder.caption.setText(post.getPostItemCaption());
-        postUserUserID = post.getPostUserUserID();
-        postID = post.getPostID();
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getCurrentUser().getUid();
-        db.collection("users")
-                .document(postUserUserID)
-                .collection("posts")
-                .document(postID)
-                .collection("likes")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        boolean userLiked = false;
-                        for (QueryDocumentSnapshot documentSnapshot: task.getResult()) {
-                            String likedUserID = documentSnapshot.getString("userID");
-                            if (likedUserID != null && likedUserID.equals(userID)) {
-                                // User has already liked this post, so set the flag to true
-                                userLiked = true;
-                                break; // Stop the loop
-                            }
-                        }
-                        if (userLiked) {
-                            holder.likeIcon.setImageResource(R.drawable.after_liked);
-                            holder.likeIcon.setEnabled(false);
-                        } else {
-                            // User has not liked this post yet
-                            // Proceed with whatever action you want to take
-                        }
-                    }
-                });
-        Glide.with(holder.itemView.getContext())
-                .load(post.getPostItemPostUrl())
-                .into(holder.postImage);
-        holder.likeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.likeIcon.setImageResource(R.drawable.after_liked);
-                holder.likeIcon.setEnabled(false);
-                mAuth = FirebaseAuth.getInstance();
-                db = FirebaseFirestore.getInstance();
-
-                userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                db.collection("users").document(userID).get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    username = documentSnapshot.getString("username");
-                                }
-                            }
-                        });
-                DocumentReference userRef = db.collection("users").document(post.getPostUserUserID());
-                userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-
-
-                            // Add the like to the Firestore
-                            Map<String, Object> likeData = new HashMap<>();
-                            likeData.put("userID", userID);
-                            likeData.put("userName", username);
-                            likeData.put("timestamp", FieldValue.serverTimestamp());
-
-                            db.collection("users")
-                                    .document(postList.get(position).getPostUserUserID())
-                                    .collection("posts")
-                                    .document(postList.get(position).getPostID())
-                                    .collection("likes")
-                                    .add(likeData)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(holder.itemView.getContext(), "Liked!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(holder.itemView.getContext(), "Failed to like!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-                    }
-                });
-            }
-        });
-        holder.commentIcon.setOnClickListener(v -> {
-            if (commentClickListener != null) {
-                commentClickListener.onCommentClick(postID, postUserUserID);
-            }
-        });
-        holder.commentIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), ShowComment.class);
-                intent.putExtra("postID", postID);
-                Toast.makeText(holder.itemView.getContext(),postID, Toast.LENGTH_SHORT).show();
-                Toast.makeText(holder.itemView.getContext(),postUserUserID, Toast.LENGTH_SHORT).show();
-                intent.putExtra("postUserUserID", postUserUserID);
-                holder.itemView.getContext().startActivity(intent);
-            }
-        });
-
-        holder.bind(post);
     }
 }
