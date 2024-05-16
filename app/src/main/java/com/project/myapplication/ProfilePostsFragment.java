@@ -21,6 +21,7 @@ import java.util.List;
 
 public class ProfilePostsFragment extends Fragment {
     private RecyclerView recyclerView;
+    String postID;
     private PostAdapter postAdapter;
     private String username;
     private String profileImageUrl;
@@ -67,7 +68,7 @@ public class ProfilePostsFragment extends Fragment {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String postID = document.getId();
+                            postID = document.getId();
                             String caption = document.getString("caption");
                             String postImageUrl = document.getString("imageUrl");
                             Posts post = new Posts(profileImageUrl, username, postImageUrl, caption, userID, postID);

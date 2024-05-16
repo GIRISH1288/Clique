@@ -1,10 +1,11 @@
 package com.project.myapplication;
 
 public class Comment {
-    public Comment(String showCommentProfilePicture, String commentUserName, String commentText) {
+    public Comment(String showCommentProfilePicture, String commentUserName, String commentText, String commentUserID) {
         this.showCommentProfilePicture = showCommentProfilePicture;
         this.commentUserName = commentUserName;
         this.commentText = commentText;
+        this.commentUserID = commentUserID;
     }
 
     public String getShowCommentProfilePicture() {
@@ -15,7 +16,19 @@ public class Comment {
         this.showCommentProfilePicture = showCommentProfilePicture;
     }
 
-    private String showCommentProfilePicture, commentUserName, commentText;
+    private String showCommentProfilePicture;
+    private String commentUserName;
+    private String commentText;
+
+    public String getCommentUserID() {
+        return commentUserID;
+    }
+
+    public void setCommentUserID(String commentUserID) {
+        this.commentUserID = commentUserID;
+    }
+
+    private String commentUserID;
 
     public String getCommentUserName() {
         return commentUserName;

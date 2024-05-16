@@ -30,6 +30,7 @@ public class PeopleFragment extends Fragment {
     CommentClickListener commentClickListener;
     ViewLikeClickListener viewLikeClickListener;
     ViewCommentClickListener viewCommentClickListener;
+    String postID;
 
     public PeopleFragment() {
         // Required empty public constructor
@@ -75,14 +76,14 @@ public class PeopleFragment extends Fragment {
                                                         .addOnCompleteListener(postsTask -> {
                                                             if (postsTask.isSuccessful()) {
                                                                 for (QueryDocumentSnapshot postDoc : Objects.requireNonNull(postsTask.getResult())) {
-                                                                    String postID = postDoc.getId();
+                                                                    postID = postDoc.getId();
                                                                     String caption = postDoc.getString("caption");
                                                                     String postImageUrl = postDoc.getString("imageUrl");
                                                                     Posts post = new Posts(connectionProfileImageUrl, connectionUsername, postImageUrl, caption, userID, postID);
                                                                     postList.add(post);
                                                                 }
                                                                 // Notify adapter when all posts are added
-                                                                PostAdapter postAdapter = new PostAdapter(postList, likeClickListener, commentClickListener, viewLikeClickListener, viewCommentClickListener, requireContext());
+                                                                PostAdapter postAdapter = new PostAdapter(postList, likeClickListener, commentClickListener, viewLikeClickListener, viewCommentClickListener,requireContext());
                                                                 postsRecyclerViewStudentFragment.setAdapter(postAdapter);
                                                             } else {
                                                                 // Handle error fetching posts

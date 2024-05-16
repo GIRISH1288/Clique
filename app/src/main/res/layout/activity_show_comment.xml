@@ -27,6 +27,40 @@
         android:layout_below="@+id/profileToolbar"
         android:layout_height="wrap_content"
         android:id="@+id/comments"/>
+    <FrameLayout
+        android:id="@+id/chatActivitySend"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/chat_activity_background_chat_input">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:padding="8dp"
+            android:src="@drawable/send_message"/>
+
+    </FrameLayout>
+    <EditText
+        android:id="@+id/chatActivityInputMessage"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_activity_background_chat_input"
+        android:hint="Type a Comment"
+        android:padding="13dp"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:maxLines="5"
+        android:paddingEnd="16dp"
+        android:layout_toLeftOf="@+id/chatActivitySend"
+        android:textColor="@color/white"
+        android:textColorHint="#636363"
+        android:layout_alignParentBottom="true"
+        />
 
 
 </RelativeLayout>
